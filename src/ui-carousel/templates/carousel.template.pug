@@ -1,0 +1,30 @@
+.carousel-wrapper(ng-show="ctrl.isCarouselReady")
+  .track-wrapper
+    .track(ng-style="ctrl.trackStyle")
+      .slide(
+        ng-repeat="item in ctrl.slidesInTrack track by $index",
+        ng-style="ctrl.getSlideStyle($index)",
+      )
+        .carousel-item
+
+  .carousel-prev(
+    ng-if="!ctrl.disableArrow",
+    ng-show="ctrl.isVisiblePrev && ctrl.options.arrows",
+    ng-click="ctrl.prev()"
+  )
+    button.carousel-btn
+      i.ui-icon-prev
+  .carousel-next(
+    ng-if="!ctrl.disableArrow",
+    ng-show="ctrl.isVisibleNext && ctrl.options.arrows",
+    ng-click="ctrl.next()"
+  )
+    button.carousel-btn
+      i.ui-icon-next
+  ul.carousel-dots(ng-show="ctrl.isVisibleDots && ctrl.options.dots")
+    li(
+      ng-repeat="dot in ctrl.getDots()",
+      ng-class="{ 'carousel-active': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }",
+      ng-click="ctrl.movePage(dot)"
+    )
+      button {{ dot }}

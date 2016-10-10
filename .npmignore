@@ -1,0 +1,14 @@
+# Any hidden files
+**/.*
+
+# Build related stuff
+/src
+/test
+/demo
+/_gh-pages
+/bower_components
+/node_modules
+gulpfile.js
+karma-dist-concatenated.conf.js
+karma-dist-minified.conf.js
+karma-src.conf.js

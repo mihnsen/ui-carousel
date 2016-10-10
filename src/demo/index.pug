@@ -1,0 +1,149 @@
+doctype html
+html(ng-app="App")
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='chrome=1')
+    meta(name='description', content='UI-Carousel lightweight module')
+    link(rel='icon', type='image/x-icon', href='https://assets-cdn.github.com/favicon.ico')
+
+    link(href='https://fonts.googleapis.com/css?family=Lato:400,500,700,900', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Pacifico', rel='stylesheet')
+
+    link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.css')
+
+    // build:css style.css
+    link(rel='stylesheet', type='text/css', href='../bower_components/prism/themes/prism-okaidia.css')
+    link(rel='stylesheet', type='text/css', href='../dist/ui-carousel.css')
+    link(rel='stylesheet', type='text/css', href='style.css')
+    // endbuild
+
+    title UI-Carousel - simple lightweight carousel for angular app
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-85040392-1', 'auto');
+      ga('send', 'pageview');
+
+  body(ng-controller="CarouselDemoCtrl as ctrl")
+    header.header
+      .container
+        h1 UI-Carousel
+        p A simple, lightweight carousel for AngularJS app.
+        p
+          | Inspired by &nbsp;
+          a(href='http://kenwheeler.github.io/slick/', target='_blank') Slick carousel
+    main.main(role='main')
+      section.screen
+        .container
+          .content-box
+            h2.title  Features
+            ul.features
+              //li Fully responsive. Scales with its container.
+              //li Separate settings per breakpoint
+              li Uses CSS3 when available. Fully functional when not.
+              li Swipe enabled. Or disabled, if you prefer.
+              li Desktop mouse dragging
+              li Infinite looping.
+              li Fully accessible with arrow key navigation
+              li Add, remove, filter & unfilter slides
+              li Autoplay, dots, arrows, callbacks, etc...
+          .divider
+          .content-box
+            h2.title Single Item
+            ui-carousel(slides="ctrl.single.slides", dots="true")
+              carousel-item
+                h3 {{ item + 1 }}
+            pre
+              code.language-html(prism="")
+                | {{ ctrl.single.source }}
+
+          .divider
+          .content-box
+            h2.title Multiple Item
+            ui-carousel(
+              slides="ctrl.multiple.slides",
+              slides-to-show="3",
+              slides-to-scroll="3",
+              dots="true"
+            )
+              carousel-item
+                h3 {{ item + 1 }}
+            pre
+              code.language-html(prism="")
+                | {{ ctrl.multiple.source }}
+          .divider
+          .content-box
+            h2.title Autoplay
+            ui-carousel(
+              slides="ctrl.autoplay.slides",
+              slides-to-show="3",
+              slides-to-scroll="1",
+              initial-slide="1",
+              autoplay="true",
+              autoplay-speed="2000",
+              dots="true"
+            )
+              carousel-item
+                h3 {{ item + 1 }}
+            pre
+              code.language-html(prism="")
+                | {{ ctrl.autoplay.source }}
+          .divider
+          .content-box
+            h2.title Fade
+            ui-carousel(
+              slides="ctrl.fade.slides",
+              slides-to-show="3",
+              slides-to-scroll="2",
+              fade="true",
+              dots="true",
+            )
+              carousel-item
+                .image
+                  img(src="{{ item }}")
+            pre
+              code.language-html(prism="")
+                | {{ ctrl.fade.source }}
+
+      section.screen.extra
+        .divider
+        h2.title Follow & Share
+        .text-center
+          // Place this tag where you want the button to render.
+          a.github-button(href='https://github.com/mihnsen', aria-label='Follow @mihnsen on GitHub') Follow @mihnsen
+          // Place this tag where you want the button to render.
+          a.github-button(href='https://github.com/mihnsen/ui-carousel', data-icon='octicon-star', data-count-href='/mihnsen/ui-carousel/stargazers', data-count-api='/repos/mihnsen/ui-carousel#stargazers_count', data-count-aria-label='# stargazers on GitHub', aria-label='Star mihnsen/ui-carousel on GitHub') Star
+        .divider
+        h2.title Issues tracker
+        .text-center
+          // Place this tag where you want the button to render.
+          a.github-button(href='https://github.com/mihnsen/ui-carousel/issues', data-icon='octicon-issue-opened', data-style='mega', data-count-api='/repos/mihnsen/ui-carousel#open_issues_count', data-count-aria-label='# issues on GitHub', aria-label='Issue mihnsen/ui-carousel on GitHub') Issue
+
+
+    footer.footer
+      .container
+        ul.footer-links
+          li
+            a(href='http://github.com/mihnsen/ui-carousel', target='_blank') Github
+          li
+            a(href='http://ownego.com', target='_blank') About
+        p
+          | Designed and built with love by&nbsp;
+          a(href='http://www.github.com/mihnsen', target='_blank') @mihnsen
+        p
+          | Code licensed&nbsp;
+          a(href='https://github.com/twbs/bootstrap/blob/master/LICENSE', target='_blank') MIT
+    a(href='https://github.com/mihnsen/ui-carousel')
+      img(style='position: fixed; top: 0; right: 0; border: 0;', src='https://camo.githubusercontent.com/52760788cde945287fbb584134c4cbc2bc36f904/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f77686974655f6666666666662e706e67', alt='Fork me on GitHub', data-canonical-src='https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png')
+
+    script(async='', defer='', src='https://buttons.github.io/buttons.js')
+
+    // build:js main.js
+    script(src='../bower_components/angular/angular.js')
+    script(src='../bower_components/angular-sanitize/angular-sanitize.js')
+    script(src='../bower_components/prism/prism.js')
+    script(type='text/javascript', src='../dist/ui-carousel.js')
+    script(type='text/javascript', src='main.js')
+    // endbuild

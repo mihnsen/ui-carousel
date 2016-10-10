@@ -1,0 +1,38 @@
+@mixin transition-transform($duration: 200ms, $easing: linear) {
+  -webkit-transition: -webkit-transform $duration $easing;
+  -moz-transition: -moz-transform $duration $easing;
+  transition: transform $duration $easing;
+}
+@mixin transform($p...) {
+  -webkit-transform: $p;
+  -moz-transform: $p;
+  transform: $p;
+}
+
+@mixin transition-multi($value...) {
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -ms-transition: $value;
+  -o-transition: $value;
+  transition: $value;
+}
+
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+      -ms-transform: translate($x, $y); // IE9 only
+       -o-transform: translate($x, $y);
+          transform: translate($x, $y);
+}
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+       -o-transition: $transition;
+          transition: $transition;
+}
+
+// Position
+.v-middle {
+  display: block;
+  position: absolute;
+  top: 50%;
+  @include translate(0, -50%);
+}

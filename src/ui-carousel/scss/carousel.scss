@@ -1,0 +1,110 @@
+.ui-carousel {
+  display: block;
+  margin-bottom: 30px;
+
+  .carousel-wrapper {
+    position: relative;
+  }
+  .track-wrapper {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  .track {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+  }
+  .slide {
+    float: left;
+    height: 100%;
+    min-height: 1px;
+  }
+  .carousel-btn {
+    position: absolute;
+    z-index: 10;
+    @extend .v-middle;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    opacity: .75;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .carousel-prev {
+    .carousel-btn {
+      left: -25px;
+    }
+  }
+  .carousel-next {
+    .carousel-btn {
+      right: -25px;
+    }
+  }
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: -30px;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+
+  li {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+
+    button {
+      font-size: 0;
+      line-height: 0;
+      display: block;
+      width: 15px;
+      height: 15px;
+      padding: 5px;
+      cursor: pointer;
+      color: transparent;
+      border: 0;
+      outline: none;
+      background: transparent;
+
+      &:before {
+        font-family: ui-carousel;
+        font-size: 9px;
+        line-height: 15px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 15px;
+        height: 15px;
+        content: "\63";
+        text-align: center;
+        opacity: 0.25;
+        color: black;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+
+    &.carousel-active {
+      button {
+        &:before {
+          opacity: .75;
+        }
+      }
+    }
+  }
+}

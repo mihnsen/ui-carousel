@@ -1,0 +1,62 @@
+{
+  "name": "angular-ui-carousel",
+  "version": "0.1.1",
+  "author": {
+    "name": "mihnsen",
+    "email": "minhnt.hut@gmail.com"
+  },
+  "description": "A simple, lightweight carousel for angularjs",
+  "license": "MIT License",
+  "homepage": "https://mihnsen.github.io/ui-carousel/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mihnsen/ui-carousel.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mihnsen/ui-carousel/issues"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "main": "dist/ui-carousel.js",
+  "keywords": [
+    "ui-carousel",
+    "carousel",
+    "carousel",
+    "angular-carousel",
+    "angular-carousel",
+    "ng-carousel"
+  ],
+  "dependencies": {
+    "angular": "^1.4.8"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "gulp": "^3.8.7",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.3.4",
+    "gulp-jshint": "^1.8.4",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-ng-html2js": "^0.2.2",
+    "gulp-plumber": "^0.6.6",
+    "gulp-pug": "^3.0.4",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^0.3.1",
+    "gulp-usemin": "^0.3.24",
+    "jasmine-core": "^2.5.2",
+    "jshint-stylish": "^0.4.0",
+    "karma": "^1.3.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-spec-reporter": "0.0.26",
+    "pug": "^2.0.0-beta6",
+    "run-sequence": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
