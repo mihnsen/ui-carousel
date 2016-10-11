@@ -22,6 +22,10 @@ angular.module('ui.carousel.controllers')
       this.initRanges();
       this.setProps();
       this.setupInfinite();
+
+      if (this.onInit) {
+        this.onInit();
+      }
     };
 
     /**
@@ -250,10 +254,23 @@ angular.module('ui.carousel.controllers')
         target = anim;
       }
 
+      if (this.onBeforeChange) {
+        this.onBeforeChange(this.currentSlide, target);
+      }
+
       // Fade handler
       if (this.options.fade) {
         this.currentSlide = target;
 
+        // XXX
+        // afterChange method
+        // fire after faded
+        // Should be revised
+        $timeout(() => {
+          if (this.onAfterChange) {
+            this.onAfterChange(this.currentSlide);
+          }
+        }, this.options.speed);
         return $q.resolve('Handler fade');
       }
 
@@ -274,6 +291,16 @@ angular.module('ui.carousel.controllers')
           if (target !== anim) {
             this.correctTrack();
           }
+
+          // XXX
+          // afterChange method
+          // fire after 200ms wakeup and correct track
+          // Should be revised
+          $timeout(() => {
+            if (this.onAfterChange) {
+              this.onAfterChange(this.currentSlide);
+            }
+          }, 200);
         });
     };
 

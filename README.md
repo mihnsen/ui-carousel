@@ -23,6 +23,9 @@ With first version, we provide a directive ui-carousel. Basic support like slick
 - slidesToShow
 - slidesToScroll
 - speed
+- onBeforeChange
+- onAfterChange
+- onInit
 
 [![ui.carousel Demo](images/screenshot.png)](http://mihnsen.github.io/ui-carousel)
 
@@ -76,8 +79,17 @@ Directive configuration.
 Definitions
 ===========
 
-### Methods
-TODO
+### Events
+
+#### onInit()
+On carousel initialized
+
+#### onBeforeChange(currentSlide, nextSlide)
+Fires before slide change
+
+#### onAfterChange(currentSlide)
+Fires after slide change
+
 
 Development
 ===========
@@ -119,11 +131,11 @@ gulp gh-pages
 
 Next, you'll want to do all of your development within three locations.  If you add changes anywhere else, they're likely to be overwritten during the build process.  These locations are:
 
-`src/scripts/ui-carousel.js` - for any script modifications.
+`src/ui-carousel/*.js` - for any script modifications.
 
-`src/scss/ui-carousel.scss` - for any style modifications.
+`src/ui-carousel/scss/*.scss` - for any style modifications.
 
-`demo/*` - for any modifications to the demo.
+`src/demo/*` - for any modifications to the demo.
 
 Lastly, once you've made your changes and run through the appropriate gulp tasks, your changes should be baked and ready for you to consume - located in the `dist` directory as minified js and css files.
 

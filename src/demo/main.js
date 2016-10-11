@@ -7,6 +7,10 @@ app.run(['Carousel', (Carousel) => {
 app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carousel) {
   'use strict';
 
+  this.singleInit = () => {
+    // console.log('single init');
+  };
+
   this.single = {
     slides: [...Array(6).keys()],
     source: '<ui-carousel slides="ctrl.single.slides" dots="true">\n' +

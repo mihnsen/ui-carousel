@@ -6,6 +6,7 @@
 /test
 /demo
 /_gh-pages
+/.tmp
 /bower_components
 /node_modules
 gulpfile.js

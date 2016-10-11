@@ -1,6 +1,6 @@
 {
   "name": "angular-ui-carousel",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "author": {
     "name": "mihnsen",
     "email": "minhnt.hut@gmail.com"
@@ -25,6 +25,7 @@
     "carousel",
     "angular-carousel",
     "angular-carousel",
+    "angular-ui-carousel",
     "ng-carousel"
   ],
   "dependencies": {

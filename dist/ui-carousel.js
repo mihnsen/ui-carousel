@@ -40,6 +40,10 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.initRanges();
     _this.setProps();
     _this.setupInfinite();
+
+    if (_this.onInit) {
+      _this.onInit();
+    }
   };
 
   /**
@@ -257,10 +261,23 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       target = anim;
     }
 
+    if (_this.onBeforeChange) {
+      _this.onBeforeChange(_this.currentSlide, target);
+    }
+
     // Fade handler
     if (_this.options.fade) {
       _this.currentSlide = target;
 
+      // XXX
+      // afterChange method
+      // fire after faded
+      // Should be revised
+      $timeout(function () {
+        if (_this.onAfterChange) {
+          _this.onAfterChange(_this.currentSlide);
+        }
+      }, _this.options.speed);
       return $q.resolve('Handler fade');
     }
 
@@ -279,6 +296,16 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       if (target !== anim) {
         _this.correctTrack();
       }
+
+      // XXX
+      // afterChange method
+      // fire after 200ms wakeup and correct track
+      // Should be revised
+      $timeout(function () {
+        if (_this.onAfterChange) {
+          _this.onAfterChange(_this.currentSlide);
+        }
+      }, 200);
     });
   };
 
@@ -501,7 +528,12 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       infinite: '=?',
       arrows: '=?',
       dots: '=?',
-      initialSlide: '=?'
+      initialSlide: '=?',
+
+      // Method
+      onBeforeChange: '&',
+      onAfterChange: '&',
+      onInit: '&'
     },
     compile: function compile(el) {
       var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));

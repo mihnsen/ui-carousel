@@ -21,6 +21,11 @@ angular.module('ui.carousel.directives')
         arrows: '=?',
         dots: '=?',
         initialSlide: '=?',
+
+        // Method
+        onBeforeChange: '&',
+        onAfterChange: '&',
+        onInit: '&',
       },
       compile(el) {
         const template = angular.element(
