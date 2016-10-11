@@ -69,7 +69,8 @@ Directive configuration.
   autoplay="true"
   autoplay-speed="2000"
   dots="true">
-    <carousel-item>
+
+  <carousel-item>
     <h3>{{ item + 1 }}</h3>
   </carousel-item>
 </ui-carousel>
@@ -147,7 +148,7 @@ Lastly, once you've made your changes and run through the appropriate gulp tasks
 + [https://twitter.com/mihnsen](https://twitter.com/mihnsen)
 
 ## Credits
-Inspired by https://developer.android.com/guide/topics/ui/notifiers/notifications.html
+Inspired by http://kenwheeler.github.io/slick/
 
 ## Copyright
 Copyright © 2016
