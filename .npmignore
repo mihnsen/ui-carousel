@@ -10,6 +10,7 @@
 /bower_components
 /node_modules
 gulpfile.js
+pakmanaged.js
 karma-dist-concatenated.conf.js
 karma-dist-minified.conf.js
 karma-src.conf.js

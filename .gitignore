@@ -11,6 +11,8 @@ node_modules/
 npm-debug.log
 libpeerconnection.log
 
+pakmanaged.js
+
 # OS-specific
 .DS_Store
 
