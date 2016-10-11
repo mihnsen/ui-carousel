@@ -30,6 +30,7 @@ bower.json
 .travis.yml
 README.md
 LICENSE
+pakmanaged.js
 
 # Demo and Github pages
 demo/
