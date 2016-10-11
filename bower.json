@@ -25,6 +25,8 @@
     "src",
     "test",
     "demo",
+    ".tmp",
+    "_gh-pages",
     "gulpfile.js",
     "karma-*.conf.js",
     "**/.*"

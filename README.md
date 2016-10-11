@@ -27,8 +27,6 @@ With first version, we provide a directive ui-carousel. Basic support like slick
 - onAfterChange
 - onInit
 
-[![ui.carousel Demo](images/screenshot.png)](http://mihnsen.github.io/ui-carousel)
-
 #### Comming soon
 With next version we will provide:
 
