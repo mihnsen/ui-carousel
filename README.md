@@ -63,6 +63,11 @@ You can also install ui-carousel with npm.
 And as always, you can download the source files straight from this repo - they're located in the `dist` dir.  Be sure to include the minified version of both js and css files.
 
 ### Usage
+Inject module
+```javascript
+angular.module('App', ['ui.carousel']);
+```
+
 Directive configuration.
 
 ```javascript
@@ -81,6 +86,29 @@ Directive configuration.
 </ui-carousel>
 ```
 
+Provide Configuration:
+You can also using global configuration on angular setup like this:
+
+```javascript
+app.run(['Carousel', (Carousel) => {
+  Carousel.setOptions({
+    arrows: true,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    cssEase: 'ease',
+    dots: false,
+
+    easing: 'linear',
+    fade: false,
+    infinite: true,
+    initialSlide: 0,
+
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+  });
+}]);
+```
 
 Definitions
 ===========
@@ -128,32 +156,6 @@ Fires after slide change
 </ui-carousel>
 ```
 
-
-Provide Configuration
-===========
-
-You can also using global configuration on angular setup like this:
-
-```javascript
-app.run(['Carousel', (Carousel) => {
-  Carousel.setOptions({
-    arrows: true,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    cssEase: 'ease',
-    dots: false,
-
-    easing: 'linear',
-    fade: false,
-    infinite: true,
-    initialSlide: 0,
-
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    speed: 500,
-  });
-}]);
-```
 
 
 Development
