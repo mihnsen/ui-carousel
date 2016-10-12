@@ -214,7 +214,7 @@ Lastly, once you've made your changes and run through the appropriate gulp tasks
 + [https://twitter.com/mihnsen](https://twitter.com/mihnsen)
 
 ## Credits
-UI-Carousel by mihnsen inspired by http://kenwheeler.github.io/slick/
+UI-Carousel by [mihnsen](https://github.com/mihnsen) inspired by http://kenwheeler.github.io/slick/
 
 ## Copyright
 Copyright © 2016
