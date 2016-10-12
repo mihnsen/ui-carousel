@@ -8,18 +8,19 @@ angular.module('ui.carousel.providers').provider('Carousel', function() {
       cssEase: 'ease',
       dots: false,
 
-      draggable: true,
-
       easing: 'linear',
       fade: false,
       infinite: true,
       initialSlide: 0,
 
-      lazyLoad: 'ondemand',
-
       slidesToShow: 1,
       slidesToScroll: 1,
       speed: 500,
+
+      // Not available right now
+      draggable: true,
+
+      lazyLoad: 'ondemand',
 
       swipe: true,
       swipeToSlide: false,

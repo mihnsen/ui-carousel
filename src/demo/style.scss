@@ -8,9 +8,14 @@ body {
   max-width: 560px;
 }
 .header {
-  padding: 50px 0;
-  color: #fff;
-  background: #444;
+  padding: 50px 0 10px;
+  color: #3498db;
+  background: #fff;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 40px;
+  }
 }
 h1 {
   font-weight: 400;

@@ -1,14 +1,13 @@
 ui-carousel ([live demo](http://mihnsen.github.io/ui-carousel/)) [![Build Status](https://travis-ci.org/mihnsen/ui-carousel.svg?branch=master)](https://travis-ci.org/mihnsen/ui-carousel) [![Code Climate](https://codeclimate.com/github/mihnsen/ui-carousel/badges/gpa.svg)](https://codeclimate.com/github/mihnsen/ui-carousel)
 =========
 
-A simple, lightweight module for carousel in your AngularJS app, Inspired from [http://kenwheeler.github.io/slick/](http://kenwheeler.github.io/slick/). No Jquery required
-.
+A simple, lightweight module for carousel in your AngularJS app, Inspired from [http://kenwheeler.github.io/slick/](http://kenwheeler.github.io/slick/). No Jquery required.
 
 [![ui.carousel Demo](https://snag.gy/0hRlB5.jpg)](http://mihnsen.github.io/ui-carousel)
 
-IE10+ (AngularJS v1.3.x no longer supports IE8) and the latest versions of Chrome, FireFox and Safari have been tested and are supported.  If you do run across any issues, please submit a [new issue](https://github.com/mihnsen/ui-carousel/issues) and I'll take a look - or better yet - submit a PR with the bug fix and I'll merge it in.
+IE9+ (AngularJS v1.3.x no longer supports IE8) and the latest versions of Chrome, FireFox and Safari have been tested and are supported.  If you do run across any issues, please submit a [new issue](https://github.com/mihnsen/ui-carousel/issues) and I'll take a look - or better yet - submit a PR with the bug fix and I'll merge it in.
 
-You can check out the vitals and demo here: [http://mihnsen.github.io/ui-carousel](http://mihnsen.github.io/ui-carousel)
+You can check out basic options and demo here: [http://mihnsen.github.io/ui-carousel](http://mihnsen.github.io/ui-carousel)
 
 #### First version
 With first version, we provide a directive ui-carousel. Basic support like slick carousel
@@ -27,12 +26,20 @@ With first version, we provide a directive ui-carousel. Basic support like slick
 - onAfterChange
 - onInit
 
+And with angularjs it also contain
+- Filtering
+
 #### Comming soon
 With next version we will provide:
 
 - Lazy loading
-- Filtering
 - Vertical
+- Mouse swipe event
+- Touch swipe event
+- Responsive config
+- Variable width
+- Adaptive height
+- rtl
 
 
 Implementation
@@ -60,7 +67,7 @@ Directive configuration.
 
 ```javascript
 <ui-carousel 
-  slides="ctrl.autoplay.slides"
+  slides="ctrl.slides"
   slides-to-show="3"
   slides-to-scroll="1"
   initial-slide="1"
@@ -78,7 +85,24 @@ Directive configuration.
 Definitions
 ===========
 
-### Events
+### Settings
+
+Option | Type | Default | Description
+------ | ---- | ------- | -----------
+autoplay | boolean | false | Enables auto play of slides
+autoplaySpeed | int  | 3000 | Auto play change interval
+cssEase | string |  'ease' | CSS3 easing
+dots | boolean | false | Current slide indicator dots
+easing | string |  'linear' | animate() fallback easing
+fade | boolean | false | Enables fade
+arrows | boolean | true | Enable Next/Prev arrows
+infinite | boolean | true | Infinite looping
+initialSlide | integer | 0 | Slide to start on
+slidesToShow | int | 1 | # of slides to show at a time
+slidesToScroll | int | 1 | # of slides to scroll at a time
+speed | int | 300 | Transition speed
+
+### Callbacks
 
 #### onInit()
 On carousel initialized
@@ -88,6 +112,48 @@ Fires before slide change
 
 #### onAfterChange(currentSlide)
 Fires after slide change
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  on-init="ctrl.onCarouselInit()"
+  on-before-change="ctrl.onCarouselBeforeChange()"
+  on-after-change="ctrl.onCarouselAfterChange()">
+
+  <carousel-item>
+    <h3>{{ item + 1 }}</h3>
+  </carousel-item>
+</ui-carousel>
+```
+
+
+Provide Configuration
+===========
+
+You can also using global configuration on angular setup like this:
+
+```javascript
+app.run(['Carousel', (Carousel) => {
+  Carousel.setOptions({
+    arrows: true,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    cssEase: 'ease',
+    dots: false,
+
+    easing: 'linear',
+    fade: false,
+    infinite: true,
+    initialSlide: 0,
+
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
+  });
+}]);
+```
 
 
 Development
@@ -146,10 +212,10 @@ Lastly, once you've made your changes and run through the appropriate gulp tasks
 + [https://twitter.com/mihnsen](https://twitter.com/mihnsen)
 
 ## Credits
-Inspired by http://kenwheeler.github.io/slick/
+UI-Carousel by mihnsen inspired by http://kenwheeler.github.io/slick/
 
 ## Copyright
 Copyright © 2016
 
 ## License
-ui.carousel is under MIT license - http://www.opensource.org/licenses/mit-license.php
+UI-Carousel is under MIT license - http://www.opensource.org/licenses/mit-license.php
