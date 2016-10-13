@@ -49,6 +49,32 @@ app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carou
             '  </carousel-item>\n' +
             '</ui-carousel>'
   };
+
+  this.customize=
+    '<ui-carousel slides="ctrl.fade.slides" slides-to-show="3" slides-to-scroll="1">\n' +
+    '  <!-- For slider render -->\n' +
+    '  <carousel-item>\n' +
+    '    <!-- placed your item content here -->\n' +
+    '    <img src="{{ item.image }}" alt="{{ item.title }}" />\n' +
+    '    <h3> {{ item.name }} </h3>\n' +
+    '    <p> {{ item.description }} </h3>\n' +
+    '    <!-- end -->\n' +
+    '  </carousel-item>\n' +
+    '  \n' +
+    '  <!-- For customize carousel next, previous button -->\n' +
+    '  <carousel-prev>\n' +
+    '    <!-- placed your previous button here -->\n' +
+    '    <button>Prev</button>\n' +
+    '    <!-- end -->\n' +
+    '  </carousel-prev>\n' +
+    '  \n' +
+    '  <carousel-next>\n' +
+    '    <!-- placed your next button here -->\n' +
+    '    <button>next</button>\n' +
+    '    <!-- end -->\n' +
+    '  </carousel-next>\n' +
+    '</ui-carousel>'
+  ;
 }]);
 
 app.directive('prism', [function() {

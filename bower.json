@@ -1,6 +1,6 @@
 {
   "name": "angular-ui-carousel",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "authors": [
     {
       "name": "mihnsen",
@@ -32,7 +32,7 @@
     "**/.*"
   ],
   "license": "MIT",
-  "homepage": "http://mihnsen.github.com/ui-carousel",
+  "homepage": "https://mihnsen.github.com/ui-carousel",
   "dependencies": {},
   "devDependencies": {
     "angular-mocks": ">=1.2.0",

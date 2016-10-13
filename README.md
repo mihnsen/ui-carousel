@@ -110,6 +110,43 @@ app.run(['Carousel', (Carousel) => {
 }]);
 ```
 
+### Advanced customize
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  on-init="ctrl.onCarouselInit()"
+  on-before-change="ctrl.onCarouselBeforeChange()"
+  on-after-change="ctrl.onCarouselAfterChange()">
+
+  <!-- For slider render -->
+  <carousel-item>
+    <!-- placed your item content here -->
+    <img src="{{ item.image }}" alt="{{ item.title }}" />
+    <h3> {{ item.name }} </h3>
+    <p> {{ item.description }} </h3>
+    <!-- end -->
+  </carousel-item>
+
+
+  <!-- For customize carousel next, previous button -->
+  <carousel-prev>
+    <!-- placed your previous button here -->
+    <button>Prev</button>
+    <!-- end -->
+  </carousel-prev>
+
+  <carousel-next>
+    <!-- placed your next button here -->
+    <button>Next</button>
+    <!-- end -->
+  </carousel-next>
+
+</ui-carousel>
+```
+
 Definitions
 ===========
 
