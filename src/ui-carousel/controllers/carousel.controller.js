@@ -481,6 +481,7 @@ angular.module('ui.carousel.controllers')
     this.setProps = () => {
       const bodyStyle = document.body.style;
 
+      /* eslint-disable */
       if (bodyStyle.OTransform !== undefined) {
         this.animType = 'OTransform';
         this.transformType = '-o-transform';
@@ -506,6 +507,7 @@ angular.module('ui.carousel.controllers')
         this.transformType = 'transform';
         this.transitionType = 'transition';
       }
+      /* eslint-enable */
 
       this.transformsEnabled = true;
     };

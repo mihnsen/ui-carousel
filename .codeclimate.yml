@@ -24,3 +24,5 @@ exclude_paths:
 - _gh_pages/
 - .tmp/
 - test/
+- src/demo/
+- gulpfile.js
