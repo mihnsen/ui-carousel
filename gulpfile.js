@@ -191,5 +191,5 @@ gulp.task('gh-pages', ['build'], function() {
 });
 
 gulp.task('default', function () {
-  runSequence('process-all', 'watch');
+  runSequence('watch');
 });

@@ -33,7 +33,7 @@ describe('ui.carousel.controller.CarouselController', function() {
     });
   }));
 
-  describe('init()', () => {
+  describe('$onInit()', () => {
     beforeEach(() => {
       spyOn(CarouselCtrl, 'initOptions');
       spyOn(CarouselCtrl, 'initRanges');
@@ -42,7 +42,7 @@ describe('ui.carousel.controller.CarouselController', function() {
     });
 
     it('should be init sequence correctly', () => {
-      CarouselCtrl.init();
+      CarouselCtrl.$onInit();
 
       expect(CarouselCtrl.initOptions).toHaveBeenCalled();
       expect(CarouselCtrl.initRanges).toHaveBeenCalled();
@@ -87,7 +87,11 @@ describe('ui.carousel.controller.CarouselController', function() {
     });
   });
 
-  describe('initRanges', () => {
+  describe('initRanges()', () => {
+    beforeEach(() => {
+      CarouselCtrl.$onInit();
+    });
+
     it('should init variables, slides correctly', () => {
       CarouselCtrl.slides = [1, 2, 3, 4, 5, 6];
       CarouselCtrl.initRanges();
@@ -113,6 +117,8 @@ describe('ui.carousel.controller.CarouselController', function() {
     beforeEach(() => {
       spyOn(CarouselCtrl, 'initTrack');
       spyOn(CarouselCtrl, 'updateItemStyle');
+
+      CarouselCtrl.$onInit();
     });
 
     it('should calculate track width', () => {
@@ -125,6 +131,10 @@ describe('ui.carousel.controller.CarouselController', function() {
   });
 
   describe('initTrack()', () => {
+    beforeEach(() => {
+      CarouselCtrl.$onInit();
+    });
+
     it('should calculate track width and prevent transition when fade = true', () => {
       CarouselCtrl.slidesInTrack = [2, 0, 1, 2, 0];
       CarouselCtrl.width = 1;
@@ -168,7 +178,10 @@ describe('ui.carousel.controller.CarouselController', function() {
      * - 8 total, 4 show, 3 scroll, current 1 => next index = 4
      */
     beforeEach(() => {
-      spyOn(CarouselCtrl, 'slideHandler');
+      CarouselCtrl.slideHandler = jasmine.createSpy('slideHandler').and.callFake(() => {
+        return $q.resolve(true);
+      });
+      CarouselCtrl.$onInit();
     });
 
     it('should works well with normal case', () => {
@@ -211,7 +224,10 @@ describe('ui.carousel.controller.CarouselController', function() {
   describe('prev()', () => {
     // Same with next()
     beforeEach(() => {
-      spyOn(CarouselCtrl, 'slideHandler');
+      CarouselCtrl.slideHandler = jasmine.createSpy('slideHandler').and.callFake(() => {
+        return $q.resolve(true);
+      });
+      CarouselCtrl.$onInit();
     });
 
     it('should works well with infinite case and sync to page index first', () => {
@@ -225,9 +241,12 @@ describe('ui.carousel.controller.CarouselController', function() {
     });
   });
 
-  describe('movePage', () => {
+  describe('movePage()', () => {
     beforeEach(() => {
-      spyOn(CarouselCtrl, 'slideHandler');
+      CarouselCtrl.slideHandler = jasmine.createSpy('slideHandler').and.callFake(() => {
+        return $q.resolve(true);
+      });
+      CarouselCtrl.$onInit();
     });
 
     it('should be work well', () => {
@@ -251,9 +270,10 @@ describe('ui.carousel.controller.CarouselController', function() {
 
   describe('slideHandler()', () => {
     beforeEach(() => {
-      CarouselCtrl.slides = [...Array(6)];
       spyOn(CarouselCtrl, 'autoplayTrack');
       spyOn(CarouselCtrl, 'correctTrack');
+      CarouselCtrl.slides = [...Array(6)];
+      CarouselCtrl.$onInit();
     });
 
     it('should reject if track is moving', (done) => {
@@ -277,7 +297,7 @@ describe('ui.carousel.controller.CarouselController', function() {
         .finally(done);
 
       $scope.$apply();
-      expect(expectMsg).toEqual('Leng of slides smaller than slides to show');
+      expect(expectMsg).toEqual('Length of slides smaller than slides to show');
     });
 
     it('should move to correct index when fade = true', (done) => {
@@ -306,7 +326,7 @@ describe('ui.carousel.controller.CarouselController', function() {
 
       CarouselCtrl.fade = false;
       CarouselCtrl.infinite = true;
-      CarouselCtrl.init();
+      CarouselCtrl.$onInit();
       CarouselCtrl.updateItemStyle();
 
       CarouselCtrl.slideHandler(6).finally(done);
@@ -322,6 +342,10 @@ describe('ui.carousel.controller.CarouselController', function() {
   });
 
   describe('moveTrack()', () => {
+    beforeEach(() => {
+      CarouselCtrl.$onInit();
+    });
+
     it('should move track and resolve after speed timeout', (done) => {
       CarouselCtrl
         .moveTrack(100)
@@ -345,6 +369,7 @@ describe('ui.carousel.controller.CarouselController', function() {
   describe('correctTrack()', () => {
     beforeEach(() => {
       CarouselCtrl.slides = [...Array(6)];
+      CarouselCtrl.$onInit();
     });
 
     it('should be working only infinite mode', () => {
@@ -379,8 +404,9 @@ describe('ui.carousel.controller.CarouselController', function() {
 
   describe('autoplayTrack()', () => {
     beforeEach(() => {
-      CarouselCtrl.slides = [...Array(6)];
       spyOn(CarouselCtrl, 'next');
+      CarouselCtrl.slides = [...Array(6)];
+      CarouselCtrl.$onInit();
     });
 
     it('should autoplay when enabled in options', () => {
@@ -404,6 +430,7 @@ describe('ui.carousel.controller.CarouselController', function() {
   describe('getSlideStyle', () => {
     beforeEach(() => {
       CarouselCtrl.slides = [...Array(6)];
+      CarouselCtrl.$onInit();
     });
 
     it('should be get correct style', () => {

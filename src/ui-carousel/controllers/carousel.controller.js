@@ -15,22 +15,25 @@ angular.module('ui.carousel.controllers')
   function ($scope, $element, $timeout, $q, Carousel) {
 
     /**
-     * initial carousel
+     * Initial carousel
+     *
+     * Mirgate to angularjs 1.6
+     * @see https://docs.angularjs.org/guide/migration#commit-bcd0d4
      */
-    this.init = () => {
+    this.$onInit = () => {
       this.initOptions();
       this.initRanges();
       this.setProps();
       this.setupInfinite();
 
+      // onInit callback
       if (this.onInit) {
         this.onInit();
       }
     };
 
     /**
-     * init option
-     * directive conifig
+     * Init option based on directive config
      */
     this.initOptions = () => {
       this.options = angular.extend({}, Carousel.getOptions());
@@ -144,9 +147,11 @@ angular.module('ui.carousel.controllers')
           this.isCarouselReady = true;
 
           if (!this.options.fade) {
-            this.trackStyle[this.transitionType] =
-              this.transformType + ' ' + this.options.speed + 'ms ' + this.options.cssEase;
+            this.refreshTrackStyle();
           }
+        })
+        .catch(() => {
+          // Catch err
         });
     };
 
@@ -166,16 +171,16 @@ angular.module('ui.carousel.controllers')
      * - 8 total, 4 show, 3 scroll, current 1 => next index = 4
      */
     this.next = () => {
-      const scrollOffset = this.slides.length % this.options.slidesToScroll !== 0;
-      const indexOffset = scrollOffset
-        ? 0
-        : (this.slides.length - this.currentSlide) % this.options.slidesToScroll;
-
+      const indexOffset = this.getIndexOffset();
       const slideOffset = indexOffset === 0
         ? this.options.slidesToScroll
         : indexOffset;
 
-      this.slideHandler(this.currentSlide + slideOffset);
+      this
+        .slideHandler(this.currentSlide + slideOffset)
+        .catch(() => {
+          // Catch err
+        });
     };
 
     /**
@@ -184,16 +189,28 @@ angular.module('ui.carousel.controllers')
      * @see next function
      */
     this.prev = () => {
+      const indexOffset = this.getIndexOffset();
+      const slideOffset = indexOffset === 0
+        ? this.options.slidesToScroll
+        : this.options.slidesToShow - indexOffset;
+
+      this
+        .slideHandler(this.currentSlide - slideOffset)
+        .catch(() => {
+          // Catch err
+        });
+    };
+
+    /**
+     * Get index offset
+     */
+    this.getIndexOffset = () => {
       const scrollOffset = this.slides.length % this.options.slidesToScroll !== 0;
       const indexOffset = scrollOffset
         ? 0
         : (this.slides.length - this.currentSlide) % this.options.slidesToScroll;
 
-      const slideOffset = indexOffset === 0
-        ? this.options.slidesToScroll
-        : this.options.slidesToShow - indexOffset;
-
-      this.slideHandler(this.currentSlide - slideOffset);
+      return indexOffset;
     };
 
     /**
@@ -203,7 +220,11 @@ angular.module('ui.carousel.controllers')
      */
     this.movePage = (page) => {
       const target = this.options.slidesToScroll * page;
-      this.slideHandler(target);
+      this
+        .slideHandler(target)
+        .catch(() => {
+          // Catch err
+        });
     };
 
     /**
@@ -227,7 +248,7 @@ angular.module('ui.carousel.controllers')
       const show = this.options.slidesToShow;
 
       if (len <= show) {
-        return $q.reject('Leng of slides smaller than slides to show');
+        return $q.reject('Length of slides smaller than slides to show');
       }
 
       // We need target to destination
@@ -344,13 +365,19 @@ angular.module('ui.carousel.controllers')
 
           // Revert animation
           $timeout(() => {
-            this.trackStyle[this.transitionType] =
-              this.transformType + ' ' + this.options.speed + 'ms ' + this.options.cssEase;
-
+            this.refreshTrackStyle();
             this.isTrackMoving = false;
           }, 200);
         });
       }
+    };
+
+    /**
+     * Refresh track style
+     */
+    this.refreshTrackStyle = () => {
+      this.trackStyle[this.transitionType] =
+        this.transformType + ' ' + this.options.speed + 'ms ' + this.options.cssEase;
     };
 
     /**
@@ -381,7 +408,7 @@ angular.module('ui.carousel.controllers')
           top: '0px',
           left: left + 'px',
           'z-index': index === this.currentSlide? 10 : 9,
-          opacity: index === this.currentSlide? 1 : 0,
+          opacity: index === this.currentSlide? 1 : 0
         };
 
         if (index >= this.currentSlide - 1 && index <= this.currentSlide + 1) {
@@ -501,5 +528,9 @@ angular.module('ui.carousel.controllers')
       this.refreshCarousel();
     });
 
-    this.init();
+    // Prior to v1.5, we need to call `$onInit()` manually.
+    // (Bindings will always be pre-assigned in these versions.)
+    if (angular.version.major === 1 && angular.version.minor < 5) {
+      this.$onInit();
+    }
   }]);
