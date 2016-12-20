@@ -1,4 +1,4 @@
-ui-carousel ([live demo](http://mihnsen.github.io/ui-carousel/)) [![Build Status](https://travis-ci.org/mihnsen/ui-carousel.svg?branch=master)](https://travis-ci.org/mihnsen/ui-carousel) [![Code Climate](https://codeclimate.com/github/mihnsen/ui-carousel/badges/gpa.svg)](https://codeclimate.com/github/mihnsen/ui-carousel)
+ui-carousel ([live demo](http://mihnsen.github.io/ui-carousel/)) [![npm version](https://badge.fury.io/js/angular-ui-carousel.svg)](https://badge.fury.io/js/angular-ui-carousel) [![Bower version](https://badge.fury.io/bo/angular-ui-carousel.svg)](https://badge.fury.io/bo/angular-ui-carousel) [![Build Status](https://travis-ci.org/mihnsen/ui-carousel.svg?branch=master)](https://travis-ci.org/mihnsen/ui-carousel) [![Code Climate](https://codeclimate.com/github/mihnsen/ui-carousel/badges/gpa.svg)](https://codeclimate.com/github/mihnsen/ui-carousel)
 =========
 
 A simple, lightweight module for carousel in your AngularJS app, Inspired from [http://kenwheeler.github.io/slick/](http://kenwheeler.github.io/slick/). No Jquery required.
