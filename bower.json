@@ -39,5 +39,8 @@
     "angular": "1.4",
     "angular-sanitize": ">=1.2.0",
     "prism": "^1.5.1"
+  },
+  "resolutions": {
+    "angular": "1.6.0"
   }
 }
