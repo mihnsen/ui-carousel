@@ -48,6 +48,16 @@
       right: -25px;
     }
   }
+  .carousel-disable {
+    opacity: 0.5;
+    pointer-events: none;
+
+    .carousel-btn {
+      &:hover {
+        opacity: .75;
+      }
+    }
+  }
 }
 
 .carousel-dots {

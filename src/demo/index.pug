@@ -53,7 +53,7 @@ html(ng-app="App")
           .divider
           .content-box
             h2.title Single Item
-            ui-carousel(slides="ctrl.single.slides", dots="true", on-init="ctrl.singleInit()")
+            ui-carousel(slides="ctrl.single.slides", dots="true", on-init="ctrl.singleInit()", infinite="false")
               carousel-item
                 h3 {{ item + 1 }}
             pre

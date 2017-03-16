@@ -103,6 +103,9 @@ angular.module('ui.carousel.controllers')
       this.isVisiblePrev = false;
       this.isVisibleNext = false;
 
+      this.isClickablePrev = false;
+      this.isClickableNext = false;
+
       this.animType = null;
       this.transformType = null;
       this.transitionType = null;
@@ -313,6 +316,17 @@ angular.module('ui.carousel.controllers')
             this.correctTrack();
           }
 
+          if (!this.options.infinite) {
+            if (this.currentSlide === 0) {
+              this.isClickablePrev = false;
+            } else if (this.currentSlide === this.slidesInTrack.length - 1) {
+              this.isClickableNext = false;
+            } else {
+              this.isClickablePrev = true;
+              this.isClickableNext = true;
+            }
+          }
+
           // XXX
           // afterChange method
           // fire after 200ms wakeup and correct track
@@ -517,6 +531,8 @@ angular.module('ui.carousel.controllers')
         this.isVisibleDots = true;
         this.isVisiblePrev = true;
         this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
       }
 
       // Re-init UI
