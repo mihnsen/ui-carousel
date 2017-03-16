@@ -182,6 +182,7 @@ describe('ui.carousel.controller.CarouselController', function() {
         return $q.resolve(true);
       });
       CarouselCtrl.$onInit();
+      CarouselCtrl.isClickableNext = true;
     });
 
     it('should works well with normal case', () => {
@@ -228,6 +229,7 @@ describe('ui.carousel.controller.CarouselController', function() {
         return $q.resolve(true);
       });
       CarouselCtrl.$onInit();
+      CarouselCtrl.isClickablePrev = true;
     });
 
     it('should works well with infinite case and sync to page index first', () => {

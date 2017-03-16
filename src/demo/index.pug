@@ -26,7 +26,7 @@ html(ng-app="App")
       ga('create', 'UA-85040392-2', 'auto');
       ga('send', 'pageview');
 
-  body(ng-controller="CarouselDemoCtrl as ctrl")
+  body(ng-controller="CarouselDemoCtrl as DemoCtrl")
     header.header
       .container
         h1 UI-Carousel
@@ -53,18 +53,18 @@ html(ng-app="App")
           .divider
           .content-box
             h2.title Single Item
-            ui-carousel(slides="ctrl.single.slides", dots="true", on-init="ctrl.singleInit()", infinite="false")
+            ui-carousel(slides="DemoCtrl.single.slides", dots="true", on-init="DemoCtrl.singleInit()", infinite="false")
               carousel-item
                 h3 {{ item + 1 }}
             pre
               code.language-html(prism="")
-                | {{ ctrl.single.source }}
+                | {{ DemoCtrl.single.source }}
 
           .divider
           .content-box
             h2.title Multiple Item
             ui-carousel(
-              slides="ctrl.multiple.slides",
+              slides="DemoCtrl.multiple.slides",
               slides-to-show="3",
               slides-to-scroll="3",
               dots="true"
@@ -73,12 +73,12 @@ html(ng-app="App")
                 h3 {{ item + 1 }}
             pre
               code.language-html(prism="")
-                | {{ ctrl.multiple.source }}
+                | {{ DemoCtrl.multiple.source }}
           .divider
           .content-box
             h2.title Autoplay
             ui-carousel(
-              slides="ctrl.autoplay.slides",
+              slides="DemoCtrl.autoplay.slides",
               slides-to-show="3",
               slides-to-scroll="1",
               initial-slide="1",
@@ -90,12 +90,12 @@ html(ng-app="App")
                 h3 {{ item + 1 }}
             pre
               code.language-html(prism="")
-                | {{ ctrl.autoplay.source }}
+                | {{ DemoCtrl.autoplay.source }}
           .divider
           .content-box
             h2.title Fade
             ui-carousel(
-              slides="ctrl.fade.slides",
+              slides="DemoCtrl.fade.slides",
               slides-to-show="3",
               slides-to-scroll="2",
               fade="true",
@@ -106,13 +106,13 @@ html(ng-app="App")
                   img(src="{{ item }}")
             pre
               code.language-html(prism="")
-                | {{ ctrl.fade.source }}
+                | {{ DemoCtrl.fade.source }}
           .divider
           .content-box
             h2.title Customzie
             pre
               code.language-html(prism="")
-                | {{ ctrl.customize }}
+                | {{ DemoCtrl.customize }}
 
       section.screen.extra
         .divider

@@ -174,6 +174,10 @@ angular.module('ui.carousel.controllers')
      * - 8 total, 4 show, 3 scroll, current 1 => next index = 4
      */
     this.next = () => {
+      if (!this.isClickableNext) {
+        return false;
+      }
+
       const indexOffset = this.getIndexOffset();
       const slideOffset = indexOffset === 0
         ? this.options.slidesToScroll
@@ -192,6 +196,10 @@ angular.module('ui.carousel.controllers')
      * @see next function
      */
     this.prev = () => {
+      if (!this.isClickablePrev) {
+        return false;
+      }
+
       const indexOffset = this.getIndexOffset();
       const slideOffset = indexOffset === 0
         ? this.options.slidesToScroll

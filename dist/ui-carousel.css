@@ -88,8 +88,7 @@
   .ui-carousel .carousel-next .carousel-btn {
     right: -25px; }
   .ui-carousel .carousel-disable {
-    opacity: 0.5;
-    pointer-events: none; }
+    opacity: 0.5; }
     .ui-carousel .carousel-disable .carousel-btn:hover {
       opacity: .75; }
 
