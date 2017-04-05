@@ -8,7 +8,7 @@ app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carou
   'use strict';
 
   this.singleInit = () => {
-    // console.log('single init');
+    console.log('single init');
   };
 
   this.single = {

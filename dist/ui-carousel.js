@@ -43,11 +43,6 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.initRanges();
     _this.setProps();
     _this.setupInfinite();
-
-    // onInit callback
-    if (_this.onInit) {
-      _this.onInit();
-    }
   };
 
   /**
@@ -167,6 +162,11 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
 
       if (!_this.options.fade) {
         _this.refreshTrackStyle();
+      }
+
+      // onInit callback
+      if (_this.onInit) {
+        _this.onInit();
       }
     }).catch(function () {
       // Catch err

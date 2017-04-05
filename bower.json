@@ -1,6 +1,6 @@
 {
   "name": "angular-ui-carousel",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "authors": [
     {
       "name": "mihnsen",
@@ -36,7 +36,7 @@
   "dependencies": {},
   "devDependencies": {
     "angular-mocks": ">=1.2.0",
-    "angular": "1.4",
+    "angular": "1.6",
     "angular-sanitize": ">=1.2.0",
     "prism": "^1.5.1"
   },
