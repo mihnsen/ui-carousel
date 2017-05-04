@@ -21,6 +21,8 @@ angular.module('ui.carousel.directives')
         arrows: '=?',
         dots: '=?',
         initialSlide: '=?',
+        visibleNext: '=?',
+        visiblePrev: '=?',
 
         // Method
         onBeforeChange: '&',

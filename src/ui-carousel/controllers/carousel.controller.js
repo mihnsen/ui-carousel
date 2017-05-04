@@ -61,11 +61,11 @@ angular.module('ui.carousel.controllers')
       if (this.dots !== undefined) {
         this.options.dots = this.dots;
       }
-      if (this.isVisiblePrev !== undefined) {
-        this.options.isVisiblePrev = this.isVisiblePrev;
+      if (this.visiblePrev !== undefined) {
+        this.options.visiblePrev = this.visiblePrev;
       }
-      if (this.isVisibleNext !== undefined) {
-        this.options.isVisibleNext = this.isVisibleNext;
+      if (this.visibleNext !== undefined) {
+        this.options.visibleNext = this.visibleNext;
       }
 
       // TODO write more options for fade mode
@@ -101,8 +101,8 @@ angular.module('ui.carousel.controllers')
       this.slideStyle = {};
 
       this.isVisibleDots = false;
-      this.isVisiblePrev = this.options.isVisiblePrev || false;
-      this.isVisibleNext = this.options.isVisibleNext || false;
+      this.isVisiblePrev = this.options.visiblePrev;
+      this.isVisibleNext = this.options.visibleNext;
 
       this.isClickablePrev = false;
       this.isClickableNext = false;

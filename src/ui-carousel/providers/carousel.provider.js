@@ -17,6 +17,9 @@ angular.module('ui.carousel.providers').provider('Carousel', function() {
       slidesToScroll: 1,
       speed: 500,
 
+      visiblePrev: false,
+      visibleNext: false,
+
       // Not available right now
       draggable: true,
 
