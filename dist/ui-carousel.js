@@ -79,6 +79,12 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     if (_this.dots !== undefined) {
       _this.options.dots = _this.dots;
     }
+    if (_this.visiblePrev !== undefined) {
+      _this.options.visiblePrev = _this.visiblePrev;
+    }
+    if (_this.visibleNext !== undefined) {
+      _this.options.visibleNext = _this.visibleNext;
+    }
 
     // TODO write more options for fade mode
     // In fade mode we have to setting slides-to-show and slides-to-scroll
@@ -113,8 +119,8 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.slideStyle = {};
 
     _this.isVisibleDots = false;
-    _this.isVisiblePrev = false;
-    _this.isVisibleNext = false;
+    _this.isVisiblePrev = _this.options.visiblePrev;
+    _this.isVisibleNext = _this.options.visibleNext;
 
     _this.isClickablePrev = false;
     _this.isClickableNext = false;
@@ -582,6 +588,8 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       arrows: '=?',
       dots: '=?',
       initialSlide: '=?',
+      visibleNext: '=?',
+      visiblePrev: '=?',
 
       // Method
       onBeforeChange: '&',
@@ -640,6 +648,9 @@ angular.module('ui.carousel.providers').provider('Carousel', function () {
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 500,
+
+    visiblePrev: false,
+    visibleNext: false,
 
     // Not available right now
     draggable: true,
