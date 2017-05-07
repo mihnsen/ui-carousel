@@ -312,7 +312,7 @@ angular.module('ui.carousel.controllers')
             this.onAfterChange(this.currentSlide);
           }
         }, this.options.speed);
-        return $q.resolve('Handler fade');
+        return $q.when('Handler fade');
       }
 
       // No-fade handler

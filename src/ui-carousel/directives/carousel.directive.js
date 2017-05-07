@@ -3,8 +3,8 @@ angular.module('ui.carousel.directives')
   function($compile, $templateCache, $sce) {
 
     return { restrict: 'AE',
-      scope: true,
-      bindToController: {
+      bindToController: true,
+      scope: {
         name: '=?',
         slides: '=',
         show: '=?slidesToShow',

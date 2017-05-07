@@ -315,7 +315,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
           _this.onAfterChange(_this.currentSlide);
         }
       }, _this.options.speed);
-      return $q.resolve('Handler fade');
+      return $q.when('Handler fade');
     }
 
     // No-fade handler
@@ -617,8 +617,8 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
 angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$templateCache', '$sce', function ($compile, $templateCache, $sce) {
 
   return { restrict: 'AE',
-    scope: true,
-    bindToController: {
+    bindToController: true,
+    scope: {
       name: '=?',
       slides: '=',
       show: '=?slidesToShow',
