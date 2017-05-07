@@ -53,7 +53,7 @@ html(ng-app="App")
           .divider
           .content-box
             h2.title Single Item
-            ui-carousel(slides="DemoCtrl.single.slides", dots="true", on-init="DemoCtrl.singleInit()", infinite="false")
+            ui-carousel(slides="DemoCtrl.single.slides", dots="true", on-init="DemoCtrl.singleInit()", infinite="false" on-after-change="DemoCtrl.singleAfter(currentSlide)")
               carousel-item
                 h3 {{ item + 1 }}
             pre
@@ -119,8 +119,8 @@ html(ng-app="App")
               carousel-item
                 h3 {{ item + 1 }}
             .buttons
-              a.button(ng-click="DemoCtrl.addItem()") Add Slice
-              a.button(ng-click="DemoCtrl.removeItem()") Remove Slice
+              a.button(ng-click="DemoCtrl.addItem()") Add Slide
+              a.button(ng-click="DemoCtrl.removeItem()") Remove Slide
             pre
               code.language-html(prism="")
                 | {{ DemoCtrl.add.source }}

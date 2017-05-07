@@ -296,7 +296,8 @@ angular.module('ui.carousel.controllers')
       }
 
       if (this.onBeforeChange) {
-        this.onBeforeChange(this.currentSlide, target);
+        // @see https://docs.angularjs.org/guide/directive
+        this.onBeforeChange({ currentSlide: this.currentSlide, target: target });
       }
 
       // Fade handler
@@ -309,7 +310,7 @@ angular.module('ui.carousel.controllers')
         // Should be revised
         $timeout(() => {
           if (this.onAfterChange) {
-            this.onAfterChange(this.currentSlide);
+            this.onAfterChange({ currentSlide: this.currentSlide });
           }
         }, this.options.speed);
         return $q.when('Handler fade');
@@ -350,7 +351,7 @@ angular.module('ui.carousel.controllers')
           // Should be revised
           $timeout(() => {
             if (this.onAfterChange) {
-              this.onAfterChange(this.currentSlide);
+              this.onAfterChange({ currentSlide: this.currentSlide });
             }
           }, 200);
         });

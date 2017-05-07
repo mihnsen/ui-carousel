@@ -11,6 +11,10 @@ app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carou
     console.log('single init');
   };
 
+  this.singleAfter = (currentSlide) => {
+    console.log(currentSlide);
+  };
+
   this.single = {
     slides: [...Array(6).keys()],
     source: '<ui-carousel slides="ctrl.single.slides" dots="true">\n' +
