@@ -309,6 +309,8 @@ angular.module('ui.carousel.controllers')
         // fire after faded
         // Should be revised
         $timeout(() => {
+          this.autoplayTrack();
+
           if (this.onAfterChange) {
             this.onAfterChange({ currentSlide: this.currentSlide });
           }
