@@ -646,7 +646,7 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       onAfterChange: '&',
       onInit: '&'
     },
-    compile: function compile(el) {
+    link: function link($scope, el) {
       var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
 
       // dynamic injections to override the inner layers' components
@@ -664,11 +664,8 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
         }
       });
 
-      return function ($scope, el) {
-        // Compile
-        var compiledElement = $compile(templateInstance)($scope);
-        el.addClass('ui-carousel').html('').append(compiledElement);
-      };
+      var compiledElement = $compile(templateInstance)($scope);
+      el.addClass('ui-carousel').html('').append(compiledElement);
     },
 
 

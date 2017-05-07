@@ -29,7 +29,7 @@ angular.module('ui.carousel.directives')
         onAfterChange: '&',
         onInit: '&',
       },
-      compile(el) {
+      link($scope, el) {
         const template = angular.element(
           $templateCache.get('ui-carousel/carousel.template.html')
         );
@@ -51,11 +51,8 @@ angular.module('ui.carousel.directives')
           }
         });
 
-        return ($scope, el) => {
-          // Compile
-          const compiledElement = $compile(templateInstance)($scope);
-          el.addClass('ui-carousel').html('').append(compiledElement);
-        };
+        const compiledElement = $compile(templateInstance)($scope);
+        el.addClass('ui-carousel').html('').append(compiledElement);
       },
 
       controller: 'CarouselController',
