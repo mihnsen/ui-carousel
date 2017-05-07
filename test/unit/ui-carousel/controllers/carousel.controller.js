@@ -108,8 +108,6 @@ describe('ui.carousel.controller.CarouselController', function() {
       expect(CarouselCtrl.animType).toBeDefined();
       expect(CarouselCtrl.transformType).toBeDefined();
       expect(CarouselCtrl.transitionType).toBeDefined();
-
-      expect(CarouselCtrl.slidesInTrack).toEqual([1, 2, 3, 4, 5, 6]);
     });
   });
 
@@ -148,6 +146,7 @@ describe('ui.carousel.controller.CarouselController', function() {
       expect(CarouselCtrl.isCarouselReady).toBe(true);
       expect(CarouselCtrl.trackStyle).toEqual({
         'width': '2.5px',
+        'webkitTransition': '-webkit-transform 0ms ease',
       });
     });
     it('should calculate track width and init track transition', () => {

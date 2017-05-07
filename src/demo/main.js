@@ -50,6 +50,26 @@ app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carou
             '</ui-carousel>'
   };
 
+  this.addIndex = 1;
+  this.addItem = () => {
+    this.add.slides.push(this.addIndex++);
+  };
+  this.removeItem = () => {
+    if (this.add.slides.length <= 1) {
+      return;
+    }
+    this.add.slides.splice(-1, 1);
+    this.addIndex--;
+  };
+  this.add = {
+    slides: [...Array(1).keys()],
+    source: '<ui-carousel slides="ctrl.add.slides" slides-to-show="3" slides-to-scroll="3" dots="true">\n' +
+            '  <carousel-item>\n' +
+            '    <h3>{{ item + 1 }}</h3>\n' +
+            '  </carousel-item>\n' +
+            '</ui-carousel>'
+  };
+
   this.customize=
     '<ui-carousel slides="ctrl.fade.slides" slides-to-show="3" slides-to-scroll="1">\n' +
     '  <!-- For slider render -->\n' +

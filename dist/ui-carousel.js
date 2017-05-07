@@ -29,7 +29,7 @@
  *          ---------
  * rectangle is visible for users
  */
-angular.module('ui.carousel.controllers').controller('CarouselController', ['$scope', '$element', '$timeout', '$q', 'Carousel', function ($scope, $element, $timeout, $q, Carousel) {
+angular.module('ui.carousel.controllers').controller('CarouselController', ['$scope', '$element', '$timeout', '$q', 'Carousel', '$window', function ($scope, $element, $timeout, $q, Carousel, $window) {
   var _this = this;
 
   /**
@@ -128,19 +128,21 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.animType = null;
     _this.transformType = null;
     _this.transitionType = null;
-
-    _this.slidesInTrack = angular.copy(_this.slides);
   };
 
   /**
    * Init UI and carousel track
    */
   this.initUI = function () {
+    _this.width = $element[0].clientWidth;
+
+    // Update track width first
+    _this.initTrack();
+
+    // Then item style
     $timeout(function () {
-      _this.width = $element[0].clientWidth;
       _this.updateItemStyle();
-      _this.initTrack();
-    });
+    }, 200);
   };
 
   /**
@@ -268,6 +270,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     var show = _this.options.slidesToShow;
 
     if (len <= show) {
+      _this.correctTrack();
       return $q.reject('Length of slides smaller than slides to show');
     }
 
@@ -382,7 +385,10 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   this.correctTrack = function () {
     if (_this.options.infinite) {
       (function () {
-        var left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+        var left = 0;
+        if (_this.slides.length > _this.options.slidesToShow) {
+          left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+        }
 
         // Move without anim
         _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
@@ -466,17 +472,21 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     var len = _this.slides.length;
     var show = _this.options.slidesToShow;
 
+    var tmpTrack = angular.copy(_this.slides);
+
     if (_this.options.infinite && _this.options.fade === false) {
       if (len > show) {
         var number = show;
         for (var i = 0; i < number; i++) {
-          _this.slidesInTrack.push(angular.copy(_this.slides[i]));
+          tmpTrack.push(angular.copy(_this.slides[i]));
         }
         for (var _i = len - 1; _i >= len - show; _i--) {
-          _this.slidesInTrack.unshift(angular.copy(_this.slides[_i]));
+          tmpTrack.unshift(angular.copy(_this.slides[_i]));
         }
       }
     }
+
+    _this.slidesInTrack = tmpTrack;
   };
 
   /**
@@ -539,6 +549,9 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.transformsEnabled = true;
   };
 
+  /**
+   * Refresh carousel
+   */
   this.refreshCarousel = function () {
     if (_this.slides && _this.slides.length && _this.slides.length > _this.options.slidesToShow) {
       _this.isVisibleDots = true;
@@ -546,6 +559,12 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       _this.isVisibleNext = true;
       _this.isClickablePrev = true;
       _this.isClickableNext = true;
+    } else {
+      _this.isVisibleDots = false;
+      _this.isVisiblePrev = false;
+      _this.isVisibleNext = false;
+      _this.isClickablePrev = false;
+      _this.isClickableNext = false;
     }
 
     // Re-init UI
@@ -555,8 +574,36 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   /**
    * refresh model
    */
-  $scope.$watch('ctrl.slides', function () {
+  $scope.$watchCollection('ctrl.slides', function (slides) {
+    if (!slides) {
+      return;
+    }
+
+    // Init carousel
+    if (_this.currentSlide > slides.length - 1) {
+      _this.currentSlide = slides.length - 1;
+    }
+
+    _this.setupInfinite();
     _this.refreshCarousel();
+  });
+
+  /**
+   * update when resize
+   *
+   * @see https://github.com/mihnsen/ui-carousel/issues/10
+   * @author tarkant
+   */
+  angular.element($window).on('resize', this.refreshCarousel);
+
+  /**
+   * cleanup when done
+   *
+   * @see https://github.com/mihnsen/ui-carousel/issues/10
+   * @author tarkant
+   */
+  $scope.$on('$destroy', function () {
+    angular.element($window).off('resize');
   });
 
   // Prior to v1.5, we need to call `$onInit()` manually.

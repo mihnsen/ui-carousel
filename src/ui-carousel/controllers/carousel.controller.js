@@ -11,8 +11,8 @@
  */
 angular.module('ui.carousel.controllers')
 .controller('CarouselController', [
-  '$scope', '$element', '$timeout', '$q', 'Carousel',
-  function ($scope, $element, $timeout, $q, Carousel) {
+  '$scope', '$element', '$timeout', '$q', 'Carousel', '$window',
+  function ($scope, $element, $timeout, $q, Carousel, $window) {
 
     /**
      * Initial carousel
@@ -110,19 +110,21 @@ angular.module('ui.carousel.controllers')
       this.animType = null;
       this.transformType = null;
       this.transitionType = null;
-
-      this.slidesInTrack = angular.copy(this.slides);
     };
 
     /**
      * Init UI and carousel track
      */
     this.initUI = () => {
+      this.width = $element[0].clientWidth;
+
+      // Update track width first
+      this.initTrack();
+
+      // Then item style
       $timeout(() => {
-        this.width = $element[0].clientWidth;
         this.updateItemStyle();
-        this.initTrack();
-      });
+      }, 200);
     };
 
     /**
@@ -265,6 +267,7 @@ angular.module('ui.carousel.controllers')
       const show = this.options.slidesToShow;
 
       if (len <= show) {
+        this.correctTrack();
         return $q.reject('Length of slides smaller than slides to show');
       }
 
@@ -381,7 +384,10 @@ angular.module('ui.carousel.controllers')
      */
     this.correctTrack = () => {
       if (this.options.infinite) {
-        let left = -1 * (this.currentSlide + this.options.slidesToShow) * this.itemWidth;
+        let left = 0;
+        if ( this.slides.length > this.options.slidesToShow ) {
+          left = -1 * (this.currentSlide + this.options.slidesToShow) * this.itemWidth;
+        }
 
         // Move without anim
         this.trackStyle[this.transitionType] =
@@ -467,17 +473,21 @@ angular.module('ui.carousel.controllers')
       const len = this.slides.length;
       const show = this.options.slidesToShow;
 
+      let tmpTrack = angular.copy(this.slides);
+
       if (this.options.infinite && this.options.fade === false) {
         if (len > show) {
           const number = show;
           for (let i = 0; i < number; i++) {
-            this.slidesInTrack.push(angular.copy(this.slides[i]));
+            tmpTrack.push(angular.copy(this.slides[i]));
           }
           for (let i = len -1; i >= len - show; i--) {
-            this.slidesInTrack.unshift(angular.copy(this.slides[i]));
+            tmpTrack.unshift(angular.copy(this.slides[i]));
           }
         }
       }
+
+      this.slidesInTrack = tmpTrack;
     };
 
     /**
@@ -540,6 +550,9 @@ angular.module('ui.carousel.controllers')
       this.transformsEnabled = true;
     };
 
+    /**
+     * Refresh carousel
+     */
     this.refreshCarousel = () => {
       if (this.slides && this.slides.length && this.slides.length > this.options.slidesToShow) {
         this.isVisibleDots = true;
@@ -547,6 +560,12 @@ angular.module('ui.carousel.controllers')
         this.isVisibleNext = true;
         this.isClickablePrev = true;
         this.isClickableNext = true;
+      } else {
+        this.isVisibleDots = false;
+        this.isVisiblePrev = false;
+        this.isVisibleNext = false;
+        this.isClickablePrev = false;
+        this.isClickableNext = false;
       }
 
       // Re-init UI
@@ -556,8 +575,36 @@ angular.module('ui.carousel.controllers')
     /**
      * refresh model
      */
-    $scope.$watch('ctrl.slides', () => {
+    $scope.$watchCollection('ctrl.slides', slides => {
+      if (!slides) {
+        return;
+      }
+
+      // Init carousel
+      if (this.currentSlide > slides.length - 1) {
+        this.currentSlide = slides.length - 1;
+      }
+
+      this.setupInfinite();
       this.refreshCarousel();
+    });
+
+    /**
+     * update when resize
+     *
+     * @see https://github.com/mihnsen/ui-carousel/issues/10
+     * @author tarkant
+     */
+    angular.element($window).on('resize', this.refreshCarousel);
+
+    /**
+     * cleanup when done
+     *
+     * @see https://github.com/mihnsen/ui-carousel/issues/10
+     * @author tarkant
+     */
+    $scope.$on('$destroy', function () {
+      angular.element($window).off('resize');
     });
 
     // Prior to v1.5, we need to call `$onInit()` manually.

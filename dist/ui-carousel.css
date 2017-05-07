@@ -47,12 +47,6 @@
 .ui-icon-dot:before {
   content: "\63"; }
 
-.notifier-close {
-  color: #fff;
-  opacity: 0.5; }
-  .notifier-close:hover {
-    opacity: 0.8; }
-
 .ui-carousel {
   display: block;
   margin-bottom: 30px; }
@@ -66,9 +60,8 @@
     padding: 0; }
   .ui-carousel .track {
     position: relative;
-    top: 0;
-    left: 0;
-    display: block; }
+    display: block;
+    float: left; }
   .ui-carousel .slide {
     float: left;
     height: 100%;

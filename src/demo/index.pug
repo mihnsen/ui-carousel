@@ -109,6 +109,23 @@ html(ng-app="App")
                 | {{ DemoCtrl.fade.source }}
           .divider
           .content-box
+            h2.title Add &amp; remove
+            ui-carousel(
+              slides="DemoCtrl.add.slides",
+              slides-to-show="3",
+              slides-to-scroll="1",
+              dots="true",
+            )
+              carousel-item
+                h3 {{ item + 1 }}
+            .buttons
+              a.button(ng-click="DemoCtrl.addItem()") Add Slice
+              a.button(ng-click="DemoCtrl.removeItem()") Remove Slice
+            pre
+              code.language-html(prism="")
+                | {{ DemoCtrl.add.source }}
+          .divider
+          .content-box
             h2.title Customzie
             pre
               code.language-html(prism="")
