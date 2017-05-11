@@ -340,8 +340,10 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       if (!_this.options.infinite) {
         if (_this.currentSlide === 0) {
           _this.isClickablePrev = false;
-        } else if (_this.currentSlide === _this.slidesInTrack.length - 1) {
+          _this.isClickableNext = true;
+        } else if (_this.currentSlide === _this.slidesInTrack.length - _this.options.slidesToShow) {
           _this.isClickableNext = false;
+          _this.isClickablePrev = true;
         } else {
           _this.isClickablePrev = true;
           _this.isClickableNext = true;
@@ -564,8 +566,8 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       _this.isClickableNext = true;
     } else {
       _this.isVisibleDots = false;
-      _this.isVisiblePrev = false;
-      _this.isVisibleNext = false;
+      _this.isVisiblePrev = _this.options.visiblePrev || false;
+      _this.isVisibleNext = _this.options.visibleNext || false;
       _this.isClickablePrev = false;
       _this.isClickableNext = false;
     }
