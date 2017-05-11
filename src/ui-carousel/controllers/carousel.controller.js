@@ -567,8 +567,8 @@ angular.module('ui.carousel.controllers')
         this.isClickableNext = true;
       } else {
         this.isVisibleDots = false;
-        this.isVisiblePrev = false;
-        this.isVisibleNext = false;
+        this.isVisiblePrev = this.options.visiblePrev || false;
+        this.isVisibleNext = this.options.visibleNext || false;
         this.isClickablePrev = false;
         this.isClickableNext = false;
       }
