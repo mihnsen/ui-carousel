@@ -339,8 +339,10 @@ angular.module('ui.carousel.controllers')
           if (!this.options.infinite) {
             if (this.currentSlide === 0) {
               this.isClickablePrev = false;
-            } else if (this.currentSlide === this.slidesInTrack.length - 1) {
+              this.isClickableNext = true;
+            } else if (this.currentSlide === this.slidesInTrack.length - this.options.slidesToShow) {
               this.isClickableNext = false;
+              this.isClickablePrev = true;
             } else {
               this.isClickablePrev = true;
               this.isClickableNext = true;
