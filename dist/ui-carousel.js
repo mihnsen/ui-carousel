@@ -135,14 +135,16 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    */
   this.initUI = function () {
     _this.width = $element[0].clientWidth;
+    // In initTrack _this.itemWidth is undefined
+    _this.updateItemStyle();
 
     // Update track width first
     _this.initTrack();
 
     // Then item style
-    $timeout(function () {
-      _this.updateItemStyle();
-    }, 200);
+    // $timeout(function () {
+    //   _this.updateItemStyle();
+    // }, 200);
   };
 
   /**
