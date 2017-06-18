@@ -322,9 +322,10 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     }
 
     // No-fade handler
-    var left = -1 * target * _this.itemWidth;
+    var itemWidth = _this.width / _this.options.slidesToShow;
+    var left = -1 * target * itemWidth;
     if (_this.options.infinite) {
-      left = -1 * (anim + show) * _this.itemWidth;
+      left = -1 * (anim + show) * itemWidth;
     }
 
     _this.isTrackMoving = true;
