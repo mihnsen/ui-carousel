@@ -126,7 +126,7 @@ app.run(['Carousel', (Carousel) => {
     <!-- placed your item content here -->
     <img src="{{ item.image }}" alt="{{ item.title }}" />
     <h3> {{ item.name }} </h3>
-    <p> {{ item.description }} </h3>
+    <p> {{ item.description }} </p>
     <!-- end -->
   </carousel-item>
 
