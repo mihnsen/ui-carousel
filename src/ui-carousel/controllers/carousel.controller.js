@@ -122,9 +122,7 @@ angular.module('ui.carousel.controllers')
       this.initTrack();
 
       // Then item style
-      $timeout(() => {
-        this.updateItemStyle();
-      }, 200);
+      this.updateItemStyle();
     };
 
     /**
@@ -575,7 +573,9 @@ angular.module('ui.carousel.controllers')
       }
 
       // Re-init UI
-      this.initUI();
+      $timeout(()=>{
+        this.initUI();
+      },200);
     };
 
     /**
