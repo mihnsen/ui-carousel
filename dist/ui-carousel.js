@@ -140,9 +140,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     _this.initTrack();
 
     // Then item style
-    $timeout(function () {
-      _this.updateItemStyle();
-    }, 200);
+    _this.updateItemStyle();
   };
 
   /**
@@ -390,26 +388,24 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    */
   this.correctTrack = function () {
     if (_this.options.infinite) {
-      (function () {
-        var left = 0;
-        if (_this.slides.length > _this.options.slidesToShow) {
-          left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
-        }
+      var left = 0;
+      if (_this.slides.length > _this.options.slidesToShow) {
+        left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+      }
 
-        // Move without anim
-        _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
+      // Move without anim
+      _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
 
-        _this.isTrackMoving = true;
+      _this.isTrackMoving = true;
+      $timeout(function () {
+        _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
+
+        // Revert animation
         $timeout(function () {
-          _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
-
-          // Revert animation
-          $timeout(function () {
-            _this.refreshTrackStyle();
-            _this.isTrackMoving = false;
-          }, 200);
-        });
-      })();
+          _this.refreshTrackStyle();
+          _this.isTrackMoving = false;
+        }, 200);
+      });
     }
   };
 
@@ -574,7 +570,9 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     }
 
     // Re-init UI
-    _this.initUI();
+    $timeout(function () {
+      _this.initUI();
+    }, 200);
   };
 
   /**
