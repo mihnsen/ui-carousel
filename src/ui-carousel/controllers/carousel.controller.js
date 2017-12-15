@@ -221,6 +221,13 @@ angular.module('ui.carousel.controllers')
     };
 
     /**
+     * Slide click callback
+     */
+    this.slideClick = function (item) {
+        this.onSlideClick({item:item});
+    }
+
+    /**
      * Get index offset
      */
     this.getIndexOffset = () => {

@@ -2,6 +2,7 @@
   .track-wrapper
     .track(ng-style="ctrl.trackStyle")
       .slide(
+        ng-click="ctrl.slideClick(item)"
         ng-repeat="item in ctrl.slidesInTrack track by $index",
         ng-style="ctrl.getSlideStyle($index)",
       )

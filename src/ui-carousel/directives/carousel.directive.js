@@ -28,6 +28,7 @@ angular.module('ui.carousel.directives')
         onBeforeChange: '&',
         onAfterChange: '&',
         onInit: '&',
+        onSlideClick: '&',
       },
       link($scope, el) {
         const template = angular.element(

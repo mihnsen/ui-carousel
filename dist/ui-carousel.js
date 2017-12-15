@@ -228,6 +228,13 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   };
 
   /**
+   * Slide click callback
+   */
+  this.slideClick = function (item) {
+    this.onSlideClick({ item: item });
+  };
+
+  /**
    * Get index offset
    */
   this.getIndexOffset = function () {
@@ -647,7 +654,8 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       // Method
       onBeforeChange: '&',
       onAfterChange: '&',
-      onInit: '&'
+      onInit: '&',
+      onSlideClick: '&'
     },
     link: function link($scope, el) {
       var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
@@ -734,6 +742,6 @@ angular.module('ui.carousel.providers').provider('Carousel', function () {
     module = angular.module('ui.carousel', []);
   }
   module.run(['$templateCache', function ($templateCache) {
-    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)"><div class="carousel-item"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
+    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-click="ctrl.slideClick(item)" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)"><div class="carousel-item"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
   }]);
 })();
