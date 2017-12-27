@@ -134,13 +134,13 @@ app.run(['Carousel', (Carousel) => {
   <!-- For customize carousel next, previous button -->
   <carousel-prev>
     <!-- placed your previous button here -->
-    <button>Prev</button>
+    <button class="carousel-btn">Prev</button>
     <!-- end -->
   </carousel-prev>
 
   <carousel-next>
     <!-- placed your next button here -->
-    <button>Next</button>
+    <button class="carousel-btn">Next</button>
     <!-- end -->
   </carousel-next>
 
