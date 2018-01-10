@@ -147,6 +147,38 @@ app.run(['Carousel', (Carousel) => {
 </ui-carousel>
 ```
 
+### External Data Binding
+
+If you want to pass additional externally scoped data apart from the slide list, you may use the `data`attribute. Within the context of an individual carousel these values can be accessed uder the controller variable named as `ctrl`.
+
+```javascript
+// inside the controller
+$scope.externally_scoped_data = {
+  ShowExtraContentOnSlide: 4,
+  ExtraContent: "This is scoped elsewhere"
+}
+```
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="true"
+  data="externally_scoped_data">
+
+  <carousel-item>
+    <h3>{{ item + 1 }}</h3>
+    <div ng-show="ctrl.data.ShowExtraContentOnSlide === $index">
+      {{ctrl.data.ExtraContent}}
+    </div>
+  </carousel-item>
+</ui-carousel>
+```
+
 Definitions
 ===========
 

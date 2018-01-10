@@ -6,6 +6,7 @@ angular.module('ui.carousel.directives')
       bindToController: true,
       scope: {
         name: '=?',
+        data: '=?',
         slides: '=',
         show: '=?slidesToShow',
         scroll: '=?slidesToScroll',
