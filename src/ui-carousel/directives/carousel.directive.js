@@ -23,6 +23,7 @@ angular.module('ui.carousel.directives')
         initialSlide: '=?',
         visibleNext: '=?',
         visiblePrev: '=?',
+        assetWidth: '=?',
 
         // Method
         onBeforeChange: '&',

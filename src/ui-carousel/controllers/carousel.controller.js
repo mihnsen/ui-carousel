@@ -67,6 +67,9 @@ angular.module('ui.carousel.controllers')
       if (this.visibleNext !== undefined) {
         this.options.visibleNext = this.visibleNext;
       }
+      if (this.assetWidth !== undefined) {
+        this.options.assetWidth = this.assetWidth;
+      }
 
       // TODO write more options for fade mode
       // In fade mode we have to setting slides-to-show and slides-to-scroll
@@ -128,10 +131,26 @@ angular.module('ui.carousel.controllers')
     };
 
     /**
+     * set itemWidth for each carousel item
+     */
+    this.setItemWidth = () => {
+      if (this.options.assetWidth !== undefined) {
+        let nOfGutters = this.options.slidesToShow - 1;
+        let widthWithoutAssets = this.width - (this.options.slidesToShow * this.options.assetWidth);
+        let gutter = widthWithoutAssets / nOfGutters;
+        this.itemWidth = this.options.assetWidth + gutter;
+        return;
+      }
+      this.itemWidth = this.width / this.options.slidesToShow;
+    };
+
+    /**
      * update common style for each carousel item
      */
     this.updateItemStyle = () => {
-      this.itemWidth = this.width / this.options.slidesToShow;
+      if (this.itemWidth === undefined) {
+        this.setItemWidth();
+      }
       this.slideStyle = {
         'width': this.itemWidth + 'px'
       };
@@ -142,8 +161,10 @@ angular.module('ui.carousel.controllers')
      * also make Carousel is Ready
      */
     this.initTrack = () => {
-      const itemWidth = this.width / this.options.slidesToShow;
-      const trackWidth = itemWidth * this.slidesInTrack.length;
+      if (this.itemWidth === undefined) {
+        this.setItemWidth();
+      }
+      const trackWidth = this.itemWidth * this.slidesInTrack.length;
 
       this.trackStyle.width = trackWidth + 'px';
 
@@ -319,10 +340,9 @@ angular.module('ui.carousel.controllers')
       }
 
       // No-fade handler
-      const itemWidth = this.width / this.options.slidesToShow;
-      let left = -1 * target * itemWidth;
+      let left = -1 * target * this.itemWidth;
       if (this.options.infinite) {
-        left = -1 * (anim + show) * itemWidth;
+        left = -1 * (anim + show) * this.itemWidth;
       }
 
       this.isTrackMoving = true;
