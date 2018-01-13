@@ -85,6 +85,9 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     if (_this.visibleNext !== undefined) {
       _this.options.visibleNext = _this.visibleNext;
     }
+    if (_this.assetWidth !== undefined) {
+      _this.options.assetWidth = _this.assetWidth;
+    }
 
     // TODO write more options for fade mode
     // In fade mode we have to setting slides-to-show and slides-to-scroll
@@ -146,10 +149,23 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   };
 
   /**
+   * set itemWidth for each carousel item
+   */
+  this.setItemWidth = function () {
+    if (_this.options.assetWidth !== undefined) {
+      var nOfGutters = _this.options.slidesToShow - 1;
+      var widthWithoutAssets = _this.width - _this.options.slidesToShow * _this.options.assetWidth;
+      var gutter = widthWithoutAssets / nOfGutters;
+      _this.itemWidth = _this.options.assetWidth + gutter;
+      return;
+    }
+    _this.itemWidth = _this.width / _this.options.slidesToShow;
+  };
+
+  /**
    * update common style for each carousel item
    */
   this.updateItemStyle = function () {
-    _this.itemWidth = _this.width / _this.options.slidesToShow;
     _this.slideStyle = {
       'width': _this.itemWidth + 'px'
     };
@@ -160,8 +176,10 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * also make Carousel is Ready
    */
   this.initTrack = function () {
-    var itemWidth = _this.width / _this.options.slidesToShow;
-    var trackWidth = itemWidth * _this.slidesInTrack.length;
+    if (_this.itemWidth === undefined) {
+      _this.setItemWidth();
+    }
+    var trackWidth = _this.itemWidth * _this.slidesInTrack.length;
 
     _this.trackStyle.width = trackWidth + 'px';
 
@@ -322,10 +340,9 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     }
 
     // No-fade handler
-    var itemWidth = _this.width / _this.options.slidesToShow;
-    var left = -1 * target * itemWidth;
+    var left = -1 * target * _this.itemWidth;
     if (_this.options.infinite) {
-      left = -1 * (anim + show) * itemWidth;
+      left = -1 * (anim + show) * _this.itemWidth;
     }
 
     _this.isTrackMoving = true;
@@ -390,26 +407,24 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    */
   this.correctTrack = function () {
     if (_this.options.infinite) {
-      (function () {
-        var left = 0;
-        if (_this.slides.length > _this.options.slidesToShow) {
-          left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
-        }
+      var left = 0;
+      if (_this.slides.length > _this.options.slidesToShow) {
+        left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+      }
 
-        // Move without anim
-        _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
+      // Move without anim
+      _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
 
-        _this.isTrackMoving = true;
+      _this.isTrackMoving = true;
+      $timeout(function () {
+        _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
+
+        // Revert animation
         $timeout(function () {
-          _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
-
-          // Revert animation
-          $timeout(function () {
-            _this.refreshTrackStyle();
-            _this.isTrackMoving = false;
-          }, 200);
-        });
-      })();
+          _this.refreshTrackStyle();
+          _this.isTrackMoving = false;
+        }, 200);
+      });
     }
   };
 
@@ -643,6 +658,7 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       initialSlide: '=?',
       visibleNext: '=?',
       visiblePrev: '=?',
+      assetWidth: '=?',
 
       // Method
       onBeforeChange: '&',
