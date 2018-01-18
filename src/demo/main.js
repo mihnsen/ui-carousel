@@ -79,7 +79,7 @@ app.controller('CarouselDemoCtrl', ['$scope', 'Carousel', function($scope, Carou
     '  <!-- For slider render -->\n' +
     '  <carousel-item>\n' +
     '    <!-- placed your item content here -->\n' +
-    '    <img src="{{ item.image }}" alt="{{ item.title }}" />\n' +
+    '    <img ng-src="{{ item.image }}" alt="{{ item.title }}" />\n' +
     '    <h3> {{ item.name }} </h3>\n' +
     '    <p> {{ item.description }} </h3>\n' +
     '    <!-- end -->\n' +
