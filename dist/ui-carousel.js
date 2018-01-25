@@ -681,51 +681,51 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
 'use strict';
 
 angular.module('ui.carousel.providers').provider('Carousel', function () {
-      var _this = this;
+  var _this = this;
 
-      this.options = {
-            // Init like Slick carousel
-            // XXX Should be revised
-            arrows: true,
-            autoplay: false,
-            autoplaySpeed: 3000,
-            cssEase: 'ease',
-            dots: false,
+  this.options = {
+    // Init like Slick carousel
+    // XXX Should be revised
+    arrows: true,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    cssEase: 'ease',
+    dots: false,
 
-            easing: 'linear',
-            fade: false,
-            infinite: true,
-            initialSlide: 0,
+    easing: 'linear',
+    fade: false,
+    infinite: true,
+    initialSlide: 0,
 
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 500,
 
-            visiblePrev: false,
-            visibleNext: false,
+    visiblePrev: false,
+    visibleNext: false,
 
-            // Not available right now
-            draggable: true,
+    // Not available right now
+    draggable: true,
 
-            lazyLoad: 'ondemand',
+    lazyLoad: 'ondemand',
 
-            swipe: true,
-            swipeToSlide: false,
-            touchMove: true,
+    swipe: true,
+    swipeToSlide: false,
+    touchMove: true,
 
-            vertical: false,
-            verticalSwiping: false
-      };
-      this.$get = [function () {
-            return {
-                  setOptions: function setOptions(options) {
-                        _this.options = angular.extend(_this.options, options);
-                  },
-                  getOptions: function getOptions() {
-                        return _this.options;
-                  }
-            };
-      }];
+    vertical: false,
+    verticalSwiping: false
+  };
+  this.$get = [function () {
+    return {
+      setOptions: function setOptions(options) {
+        _this.options = angular.extend(_this.options, options);
+      },
+      getOptions: function getOptions() {
+        return _this.options;
+      }
+    };
+  }];
 });
 'use strict';
 
