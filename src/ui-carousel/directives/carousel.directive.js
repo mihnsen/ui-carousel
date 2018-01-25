@@ -40,6 +40,7 @@ angular.module('ui.carousel.directives')
           'carousel-item': '.carousel-item',
           'carousel-prev': '.carousel-prev',
           'carousel-next': '.carousel-next',
+          'carousel-pagination': '.carousel-pagination'
         };
 
         const templateInstance = template.clone();

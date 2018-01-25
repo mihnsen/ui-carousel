@@ -147,6 +147,26 @@ app.run(['Carousel', (Carousel) => {
 </ui-carousel>
 ```
 
+### Custom pagination
+
+If you want to forgo the use of "dots" and use any sort of custom pagination indicator, you may use a `carousel-pagination` iten in your html.
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="false">
+  <carousel-item>
+    <h3>{{ item + 1 }}</h3>
+  </carousel-item>
+  <carousel-pagination>SLIDE {{ctrl.currentSlide + 1}} of {{ctrl.slides.length + 1}}</carousel-pagination>
+</ui-carousel>
+```
+
 ### External Data Binding
 
 If you want to pass additional externally scoped data apart from the slide list, you may use the `data`attribute. Within the context of an individual carousel these values can be accessed uder the controller variable named as `ctrl`.
