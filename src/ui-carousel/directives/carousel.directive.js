@@ -6,6 +6,8 @@ angular.module('ui.carousel.directives')
       bindToController: true,
       scope: {
         name: '=?',
+        data: '=?',
+        handle: '=?',
         slides: '=',
         show: '=?slidesToShow',
         scroll: '=?slidesToScroll',
@@ -39,6 +41,7 @@ angular.module('ui.carousel.directives')
           'carousel-item': '.carousel-item',
           'carousel-prev': '.carousel-prev',
           'carousel-next': '.carousel-next',
+          'carousel-pagination': '.carousel-pagination'
         };
 
         const templateInstance = template.clone();
@@ -53,6 +56,7 @@ angular.module('ui.carousel.directives')
 
         const compiledElement = $compile(templateInstance)($scope);
         el.addClass('ui-carousel').html('').append(compiledElement);
+        $scope.ctrl.handle = $scope.ctrl;
       },
 
       controller: 'CarouselController',

@@ -147,6 +147,82 @@ app.run(['Carousel', (Carousel) => {
 </ui-carousel>
 ```
 
+### Custom pagination
+
+If you want to forgo the use of "dots" and use any sort of custom pagination indicator, you may use a `carousel-pagination` iten in your html.
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="false">
+  <carousel-item>
+    <h3>{{ item + 1 }}</h3>
+  </carousel-item>
+  <carousel-pagination>SLIDE {{ctrl.currentSlide + 1}} of {{ctrl.slides.length + 1}}</carousel-pagination>
+</ui-carousel>
+```
+
+### External Data Binding
+
+If you want to pass additional externally scoped data apart from the slide list, you may use the `data`attribute. Within the context of an individual carousel these values can be accessed uder the controller variable named as `ctrl`.
+
+```javascript
+// inside the controller
+$scope.externally_scoped_data = {
+  ShowExtraContentOnSlide: 4,
+  ExtraContent: "This is scoped elsewhere"
+}
+```
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="true"
+  data="externally_scoped_data">
+
+  <carousel-item>
+    <h3>{{ item + 1 }}</h3>
+    <div ng-show="ctrl.data.ShowExtraContentOnSlide === $index">
+      {{ctrl.data.ExtraContent}}
+    </div>
+  </carousel-item>
+</ui-carousel>
+```
+
+### Addressable handle for programatic interaction
+
+If you need to act upon the slide control outside of the slideshow's internal scope, you can create a handle to the show within your parent controller. An example might be when you wish to "jump to" a given slide based on an action outside of the slideshow itself.
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="true"
+  handle="my_slideshow">
+
+  <carousel-item></carousel-item>
+</ui-carousel>
+```
+then from within your parent scope
+
+```javascript
+$scope.my_slideshow.movePage(3);
+```
+
 Definitions
 ===========
 
