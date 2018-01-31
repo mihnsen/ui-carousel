@@ -7,6 +7,7 @@ angular.module('ui.carousel.directives')
       scope: {
         name: '=?',
         data: '=?',
+        handle: '=?',
         slides: '=',
         show: '=?slidesToShow',
         scroll: '=?slidesToScroll',
@@ -55,6 +56,7 @@ angular.module('ui.carousel.directives')
 
         const compiledElement = $compile(templateInstance)($scope);
         el.addClass('ui-carousel').html('').append(compiledElement);
+        $scope.ctrl.handle = $scope.ctrl;
       },
 
       controller: 'CarouselController',

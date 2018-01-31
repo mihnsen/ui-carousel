@@ -199,6 +199,30 @@ $scope.externally_scoped_data = {
 </ui-carousel>
 ```
 
+### Addressable handle for programatic interaction
+
+If you need to act upon the slide control outside of the slideshow's internal scope, you can create a handle to the show within your parent controller. An example might be when you wish to "jump to" a given slide based on an action outside of the slideshow itself.
+
+```javascript
+<ui-carousel 
+  slides="ctrl.slides"
+  slides-to-show="3"
+  slides-to-scroll="1"
+  initial-slide="1"
+  autoplay="true"
+  autoplay-speed="2000"
+  dots="true"
+  handle="my_slideshow">
+
+  <carousel-item></carousel-item>
+</ui-carousel>
+```
+then from within your parent scope
+
+```javascript
+$scope.my_slideshow.movePage(3);
+```
+
 Definitions
 ===========
 
