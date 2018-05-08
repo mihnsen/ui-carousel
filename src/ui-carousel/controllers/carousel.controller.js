@@ -452,7 +452,7 @@ angular.module('ui.carousel.controllers')
         };
 
         if (index >= this.currentSlide - 1 && index <= this.currentSlide + 1) {
-          uniqueStyle.transition = 'opacity 250ms linear';
+          uniqueStyle.transition = 'opacity ' + _this.options.speed + 'ms linear';
         }
 
         style = angular.extend(style, uniqueStyle);
