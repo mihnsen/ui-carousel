@@ -92,6 +92,8 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     if (_this.options.fade) {
       _this.options.slidesToShow = 1;
       _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
     } else {
       if (_this.show) {
         _this.options.slidesToShow = _this.show;
@@ -134,6 +136,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * Init UI and carousel track
    */
   this.initUI = function () {
+    console.log("element width", $element[0].clientWidth); //eslint-disable-line
     _this.width = $element[0].clientWidth;
 
     // Update track width first
@@ -149,6 +152,26 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * update common style for each carousel item
    */
   this.updateItemStyle = function () {
+    if (_this.width < 768) {
+      _this.options.slidesToShow = 1;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 768 && _this.width <= 1279) {
+      _this.options.slidesToShow = 2;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 1280) {
+      _this.options.slidesToShow = 3;
+      _this.options.slidesToScroll = 3;
+      _this.isVisiblePrev = false;
+      _this.isVisibleNext = false;
+    }
     _this.itemWidth = _this.width / _this.options.slidesToShow;
     _this.slideStyle = {
       'width': _this.itemWidth + 'px'
@@ -160,6 +183,26 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * also make Carousel is Ready
    */
   this.initTrack = function () {
+    if (_this.width < 768) {
+      _this.options.slidesToShow = 1;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 768 && _this.width <= 1279) {
+      _this.options.slidesToShow = 2;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 1280) {
+      _this.options.slidesToShow = 3;
+      _this.options.slidesToScroll = 3;
+      _this.isVisiblePrev = false;
+      _this.isVisibleNext = false;
+    }
     var itemWidth = _this.width / _this.options.slidesToShow;
     var trackWidth = itemWidth * _this.slidesInTrack.length;
 
@@ -322,6 +365,26 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     }
 
     // No-fade handler
+    if (_this.width < 768) {
+      _this.options.slidesToShow = 1;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 768 && _this.width <= 1279) {
+      _this.options.slidesToShow = 2;
+      _this.options.slidesToScroll = 1;
+      _this.isVisiblePrev = true;
+      _this.isVisibleNext = true;
+      _this.isClickablePrev = true;
+      _this.isClickableNext = true;
+    }if (_this.width >= 1280) {
+      _this.options.slidesToShow = 3;
+      _this.options.slidesToScroll = 3;
+      _this.isVisiblePrev = false;
+      _this.isVisibleNext = false;
+    }
     var itemWidth = _this.width / _this.options.slidesToShow;
     var left = -1 * target * itemWidth;
     if (_this.options.infinite) {
@@ -390,26 +453,24 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    */
   this.correctTrack = function () {
     if (_this.options.infinite) {
-      (function () {
-        var left = 0;
-        if (_this.slides.length > _this.options.slidesToShow) {
-          left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
-        }
+      var left = 0;
+      if (_this.slides.length > _this.options.slidesToShow) {
+        left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+      }
 
-        // Move without anim
-        _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
+      // Move without anim
+      _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
 
-        _this.isTrackMoving = true;
+      _this.isTrackMoving = true;
+      $timeout(function () {
+        _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
+
+        // Revert animation
         $timeout(function () {
-          _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
-
-          // Revert animation
-          $timeout(function () {
-            _this.refreshTrackStyle();
-            _this.isTrackMoving = false;
-          }, 200);
-        });
-      })();
+          _this.refreshTrackStyle();
+          _this.isTrackMoving = false;
+        }, 200);
+      });
     }
   };
 

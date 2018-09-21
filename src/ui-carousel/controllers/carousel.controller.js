@@ -74,6 +74,8 @@ angular.module('ui.carousel.controllers')
       if (this.options.fade) {
         this.options.slidesToShow = 1;
         this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
       } else {
         if (this.show) {
           this.options.slidesToShow = this.show;
@@ -131,6 +133,26 @@ angular.module('ui.carousel.controllers')
      * update common style for each carousel item
      */
     this.updateItemStyle = () => {
+      if(this.width < 768){
+        this.options.slidesToShow = 1;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if (this.width >= 768 && this.width <= 1279){
+        this.options.slidesToShow = 2;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if(this.width >= 1280){
+        this.options.slidesToShow = 3;
+        this.options.slidesToScroll = 3;
+        this.isVisiblePrev = false;
+        this.isVisibleNext = false;
+      }
       this.itemWidth = this.width / this.options.slidesToShow;
       this.slideStyle = {
         'width': this.itemWidth + 'px'
@@ -142,6 +164,26 @@ angular.module('ui.carousel.controllers')
      * also make Carousel is Ready
      */
     this.initTrack = () => {
+      if(this.width < 768){
+        this.options.slidesToShow = 1;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if (this.width >= 768 && this.width <= 1279){
+        this.options.slidesToShow = 2;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if(this.width >= 1280){
+        this.options.slidesToShow = 3;
+        this.options.slidesToScroll = 3;
+        this.isVisiblePrev = false;
+        this.isVisibleNext = false;
+      }
       const itemWidth = this.width / this.options.slidesToShow;
       const trackWidth = itemWidth * this.slidesInTrack.length;
 
@@ -319,6 +361,26 @@ angular.module('ui.carousel.controllers')
       }
 
       // No-fade handler
+      if(this.width < 768){
+        this.options.slidesToShow = 1;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if (this.width >= 768 && this.width <= 1279){
+        this.options.slidesToShow = 2;
+        this.options.slidesToScroll = 1;
+        this.isVisiblePrev = true;
+        this.isVisibleNext = true;
+        this.isClickablePrev = true;
+        this.isClickableNext = true;
+      }if(this.width >= 1280){
+        this.options.slidesToShow = 3;
+        this.options.slidesToScroll = 3;
+        this.isVisiblePrev = false;
+        this.isVisibleNext = false;
+      }
       const itemWidth = this.width / this.options.slidesToShow;
       let left = -1 * target * itemWidth;
       if (this.options.infinite) {

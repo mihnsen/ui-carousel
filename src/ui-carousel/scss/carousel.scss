@@ -1,6 +1,5 @@
 .ui-carousel {
   display: block;
-  margin-bottom: 30px;
 
   .carousel-wrapper {
     position: relative;
@@ -39,12 +38,12 @@
 
   .carousel-prev {
     .carousel-btn {
-      left: -25px;
+      left: -10px;
     }
   }
   .carousel-next {
     .carousel-btn {
-      right: -25px;
+      right: -10px;
     }
   }
   .carousel-disable {
