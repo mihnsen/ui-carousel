@@ -136,6 +136,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * Init UI and carousel track
    */
   this.initUI = function () {
+    console.log("element width", $element[0].clientWidth); //eslint-disable-line
     _this.width = $element[0].clientWidth;
 
     // Update track width first
