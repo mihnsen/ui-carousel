@@ -48,7 +48,8 @@
   content: "\63"; }
 
 .ui-carousel {
-  display: block; }
+  display: block;
+  margin-bottom: 30px; }
   .ui-carousel .carousel-wrapper {
     position: relative; }
   .ui-carousel .track-wrapper {
@@ -76,9 +77,9 @@
     .ui-carousel .carousel-btn:hover {
       opacity: 1; }
   .ui-carousel .carousel-prev .carousel-btn {
-    left: -10px; }
+    left: -25px; }
   .ui-carousel .carousel-next .carousel-btn {
-    right: -10px; }
+    right: -25px; }
   .ui-carousel .carousel-disable {
     opacity: 0.5; }
     .ui-carousel .carousel-disable .carousel-btn:hover {
