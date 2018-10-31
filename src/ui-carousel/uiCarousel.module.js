@@ -10,6 +10,7 @@
     });
 
   // Modules
+  require('angular-touch');
   angular.module('ui.carousel.providers', []);
   angular.module('ui.carousel.controllers', []);
   angular.module('ui.carousel.directives', []);
@@ -17,6 +18,7 @@
     'ui.carousel.config',
     'ui.carousel.directives',
     'ui.carousel.controllers',
-    'ui.carousel.providers'
+    'ui.carousel.providers',
+    'ngTouch'
   ]);
 })(angular);

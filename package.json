@@ -28,7 +28,9 @@
     "angular-ui-carousel",
     "ng-carousel"
   ],
-  "dependencies": { },
+  "dependencies": {
+    "angular-touch": "^1.7.5"
+  },
   "devDependencies": {
     "babel-preset-es2015": "^6.16.0",
     "gulp": "^3.8.7",

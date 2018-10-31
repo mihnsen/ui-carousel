@@ -5,7 +5,10 @@
         ng-repeat="item in ctrl.slidesInTrack track by $index",
         ng-style="ctrl.getSlideStyle($index)",
       )
-        .carousel-item
+        .carousel-item(
+          ng-swipe-right="ctrl.prev()"
+          ng-swipe-left="ctrl.next()"
+        )
 
   .carousel-prev(
     ng-if="!ctrl.disableArrow",

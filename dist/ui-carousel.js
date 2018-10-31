@@ -11,10 +11,11 @@
   });
 
   // Modules
+  require('angular-touch');
   angular.module('ui.carousel.providers', []);
   angular.module('ui.carousel.controllers', []);
   angular.module('ui.carousel.directives', []);
-  angular.module('ui.carousel', ['ui.carousel.config', 'ui.carousel.directives', 'ui.carousel.controllers', 'ui.carousel.providers']);
+  angular.module('ui.carousel', ['ui.carousel.config', 'ui.carousel.directives', 'ui.carousel.controllers', 'ui.carousel.providers', 'ngTouch']);
 })(angular);
 'use strict';
 
@@ -99,6 +100,9 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
       if (_this.scroll) {
         _this.options.slidesToScroll = _this.scroll;
       }
+      if (_this.eachItemWidth) {
+        _this.options.eachItemWidth = _this.eachItemWidth;
+      }
     }
   };
 
@@ -149,7 +153,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * update common style for each carousel item
    */
   this.updateItemStyle = function () {
-    _this.itemWidth = _this.width / _this.options.slidesToShow;
+    _this.itemWidth = _this.options.eachItemWidth ? _this.options.eachItemWidth : _this.width / _this.options.slidesToShow;
     _this.slideStyle = {
       'width': _this.itemWidth + 'px'
     };
@@ -160,7 +164,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * also make Carousel is Ready
    */
   this.initTrack = function () {
-    var itemWidth = _this.width / _this.options.slidesToShow;
+    var itemWidth = _this.options.eachItemWidth ? _this.options.eachItemWidth : _this.width / _this.options.slidesToShow;
     var trackWidth = itemWidth * _this.slidesInTrack.length;
 
     _this.trackStyle.width = trackWidth + 'px';
@@ -322,7 +326,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
     }
 
     // No-fade handler
-    var itemWidth = _this.width / _this.options.slidesToShow;
+    var itemWidth = _this.options.eachItemWidth ? _this.options.eachItemWidth : _this.width / _this.options.slidesToShow;
     var left = -1 * target * itemWidth;
     if (_this.options.infinite) {
       left = -1 * (anim + show) * itemWidth;
@@ -369,6 +373,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * for example left: -1000px
    */
   this.moveTrack = function (left) {
+    left = left + (_this.width - _this.itemWidth) / 2;
     var deferred = $q.defer();
     if (_this.options.vertical === false) {
       _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0px, 0px)';
@@ -389,27 +394,35 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * to exactly its position
    */
   this.correctTrack = function () {
+    var left = 0;
     if (_this.options.infinite) {
-      (function () {
-        var left = 0;
-        if (_this.slides.length > _this.options.slidesToShow) {
-          left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
-        }
+      if (_this.slides.length > _this.options.slidesToShow) {
+        left = left - _this.itemWidth / 2;
+        left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+      } else {
+        left = left + _this.itemWidth / 2;
+      }
 
-        // Move without anim
-        _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
+      // Move without anim
+      _this.trackStyle[_this.transitionType] = _this.transformType + ' ' + 0 + 'ms ' + _this.options.cssEase;
 
-        _this.isTrackMoving = true;
+      _this.isTrackMoving = true;
+      $timeout(function () {
+        _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
+
+        // Revert animation
         $timeout(function () {
-          _this.trackStyle[_this.animType] = 'translate3d(' + left + 'px, 0, 0px)';
-
-          // Revert animation
-          $timeout(function () {
-            _this.refreshTrackStyle();
-            _this.isTrackMoving = false;
-          }, 200);
-        });
-      })();
+          _this.refreshTrackStyle();
+          _this.isTrackMoving = false;
+        }, 200);
+      });
+    } else {
+      if (_this.slides.length > _this.options.slidesToShow) {
+        left = left - _this.itemWidth / 2;
+        left = -1 * (_this.currentSlide + _this.options.slidesToShow) * _this.itemWidth;
+      } else {
+        left = left + _this.itemWidth / 2;
+      }
     }
   };
 
@@ -629,6 +642,7 @@ angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$
       slides: '=',
       show: '=?slidesToShow',
       scroll: '=?slidesToScroll',
+      eachItemWidth: '=?eachItemWidth',
       classes: '@',
       fade: '=?',
       onChange: '=?',
@@ -734,6 +748,6 @@ angular.module('ui.carousel.providers').provider('Carousel', function () {
     module = angular.module('ui.carousel', []);
   }
   module.run(['$templateCache', function ($templateCache) {
-    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)"><div class="carousel-item"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
+    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)"><div class="carousel-item" ng-swipe-right="ctrl.prev()" ng-swipe-left="ctrl.next()"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
   }]);
 })();

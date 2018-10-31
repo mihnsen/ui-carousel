@@ -9,6 +9,7 @@ angular.module('ui.carousel.directives')
         slides: '=',
         show: '=?slidesToShow',
         scroll: '=?slidesToScroll',
+        eachItemWidth: '=?eachItemWidth',
         classes: '@',
         fade: '=?',
         onChange: '=?',
