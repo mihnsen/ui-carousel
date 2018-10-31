@@ -596,7 +596,7 @@ angular.module('ui.carousel.controllers')
      * refresh model
      */
     $scope.$watchCollection('ctrl.slides', slides => {
-      if (!slides) {
+      if (!slides || !slides.length) {
         return;
       }
 
