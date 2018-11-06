@@ -372,6 +372,9 @@ angular.module('ui.carousel.controllers')
      * for example left: -1000px
      */
     this.moveTrack = (left) => {
+      if( !left ) {
+        this.updateItemStyle();
+      }
       left = left + (this.width - this.itemWidth)/2;
       const deferred = $q.defer();
       if (this.options.vertical === false) {
