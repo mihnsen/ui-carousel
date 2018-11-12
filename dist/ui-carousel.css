@@ -47,6 +47,10 @@
 .ui-icon-dot:before {
   content: "\63"; }
 
+.card-shadow .carousel-item .app-tile{
+  box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.08) !important;
+}
+
 .ui-carousel {
   display: block;
   margin-bottom: 30px; }
