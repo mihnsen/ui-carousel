@@ -19,65 +19,6 @@
 })(angular);
 'use strict';
 
-angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$templateCache', '$sce', function ($compile, $templateCache, $sce) {
-
-  return { restrict: 'AE',
-    bindToController: true,
-    scope: {
-      name: '=?',
-      slides: '=',
-      show: '=?slidesToShow',
-      scroll: '=?slidesToScroll',
-      eachItemWidth: '=?eachItemWidth',
-      classes: '@',
-      fade: '=?',
-      onChange: '=?',
-      disableArrow: '=?',
-      autoplay: '=?',
-      autoplaySpeed: '=?',
-      cssEase: '=?',
-      speed: '=?',
-      infinite: '=?',
-      arrows: '=?',
-      dots: '=?',
-      initialSlide: '=?',
-      visibleNext: '=?',
-      visiblePrev: '=?',
-
-      // Method
-      onBeforeChange: '&',
-      onAfterChange: '&',
-      onInit: '&'
-    },
-    link: function link($scope, el) {
-      var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
-
-      // dynamic injections to override the inner layers' components
-      var injectComponentMap = {
-        'carousel-item': '.carousel-item',
-        'carousel-prev': '.carousel-prev',
-        'carousel-next': '.carousel-next'
-      };
-
-      var templateInstance = template.clone();
-      angular.forEach(injectComponentMap, function (innerSelector, outerSelector) {
-        var outerElement = el[0].querySelector(outerSelector);
-        if (outerElement) {
-          angular.element(templateInstance[0].querySelector(innerSelector)).html(outerElement.innerHTML);
-        }
-      });
-
-      var compiledElement = $compile(templateInstance)($scope);
-      el.addClass('ui-carousel').html('').append(compiledElement);
-    },
-
-
-    controller: 'CarouselController',
-    controllerAs: 'ctrl'
-  };
-}]);
-'use strict';
-
 /**
  * angular-ui-carousel
  * for example:
@@ -692,6 +633,65 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   if (angular.version.major === 1 && angular.version.minor < 5) {
     this.$onInit();
   }
+}]);
+'use strict';
+
+angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$templateCache', '$sce', function ($compile, $templateCache, $sce) {
+
+  return { restrict: 'AE',
+    bindToController: true,
+    scope: {
+      name: '=?',
+      slides: '=',
+      show: '=?slidesToShow',
+      scroll: '=?slidesToScroll',
+      eachItemWidth: '=?eachItemWidth',
+      classes: '@',
+      fade: '=?',
+      onChange: '=?',
+      disableArrow: '=?',
+      autoplay: '=?',
+      autoplaySpeed: '=?',
+      cssEase: '=?',
+      speed: '=?',
+      infinite: '=?',
+      arrows: '=?',
+      dots: '=?',
+      initialSlide: '=?',
+      visibleNext: '=?',
+      visiblePrev: '=?',
+
+      // Method
+      onBeforeChange: '&',
+      onAfterChange: '&',
+      onInit: '&'
+    },
+    link: function link($scope, el) {
+      var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
+
+      // dynamic injections to override the inner layers' components
+      var injectComponentMap = {
+        'carousel-item': '.carousel-item',
+        'carousel-prev': '.carousel-prev',
+        'carousel-next': '.carousel-next'
+      };
+
+      var templateInstance = template.clone();
+      angular.forEach(injectComponentMap, function (innerSelector, outerSelector) {
+        var outerElement = el[0].querySelector(outerSelector);
+        if (outerElement) {
+          angular.element(templateInstance[0].querySelector(innerSelector)).html(outerElement.innerHTML);
+        }
+      });
+
+      var compiledElement = $compile(templateInstance)($scope);
+      el.addClass('ui-carousel').html('').append(compiledElement);
+    },
+
+
+    controller: 'CarouselController',
+    controllerAs: 'ctrl'
+  };
 }]);
 'use strict';
 

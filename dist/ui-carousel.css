@@ -48,7 +48,9 @@
   content: "\63"; }
 
 .card-shadow .carousel-item .app-tile{
-  box-shadow: 0px 6px 12px 0px rgba(0,0,0,0.08) !important;
+  -webkit-box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.08) !important;
+  -moz-box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.08) !important;
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.08) !important;
 }
 
 .ui-carousel {
