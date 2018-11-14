@@ -131,6 +131,17 @@ angular.module('ui.carousel.controllers')
     };
 
     /**
+     * Watch on carousel Elements width and
+     * if its not set initTrack
+     */
+    var vm = this;
+    $scope.$watch(this.width, () => {
+      if ($element[0].clientWidth == 0){
+        vm.initTrack();
+      }
+    })
+
+    /**
      * update common style for each carousel item
      */
     this.updateItemStyle = () => {
