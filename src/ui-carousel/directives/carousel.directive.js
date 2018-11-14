@@ -24,6 +24,7 @@ angular.module('ui.carousel.directives')
         initialSlide: '=?',
         visibleNext: '=?',
         visiblePrev: '=?',
+        preSpace: '=?',
 
         // Method
         onBeforeChange: '&',

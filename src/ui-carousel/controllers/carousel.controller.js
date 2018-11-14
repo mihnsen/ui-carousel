@@ -373,10 +373,12 @@ angular.module('ui.carousel.controllers')
      * for example left: -1000px
      */
     this.moveTrack = (left) => {
-      if( !left ) {
-        this.updateItemStyle();
+      if( this.preSpace) {
+        if (!left) {
+          this.updateItemStyle();
+        }
+        left = left + (this.width - this.itemWidth)/2;
       }
-      left = left + (this.width - this.itemWidth)/2;
       const deferred = $q.defer();
       if (this.options.vertical === false) {
         this.trackStyle[this.animType] = 'translate3d(' + left + 'px, 0px, 0px)';
@@ -400,10 +402,7 @@ angular.module('ui.carousel.controllers')
       let left = 0;
       if (this.options.infinite) {
         if ( this.slides.length > this.options.slidesToShow ) {
-          left = left-(this.itemWidth/2);
           left = -1 * (this.currentSlide + this.options.slidesToShow) * this.itemWidth;
-        }else{
-          left = left+(this.itemWidth/2);
         }
 
         // Move without anim
@@ -420,7 +419,8 @@ angular.module('ui.carousel.controllers')
             this.isTrackMoving = false;
           }, 200);
         });
-      }else{
+      }else
+       if(this.preSpace){
         if ( this.slides.length > this.options.slidesToShow ) {
           left = left-(this.itemWidth/2);
           left = -1 * (this.currentSlide + this.options.slidesToShow) * this.itemWidth;
