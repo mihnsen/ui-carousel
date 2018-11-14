@@ -19,66 +19,6 @@
 })(angular);
 'use strict';
 
-angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$templateCache', '$sce', function ($compile, $templateCache, $sce) {
-
-  return { restrict: 'AE',
-    bindToController: true,
-    scope: {
-      name: '=?',
-      slides: '=',
-      show: '=?slidesToShow',
-      scroll: '=?slidesToScroll',
-      eachItemWidth: '=?eachItemWidth',
-      classes: '@',
-      fade: '=?',
-      onChange: '=?',
-      disableArrow: '=?',
-      autoplay: '=?',
-      autoplaySpeed: '=?',
-      cssEase: '=?',
-      speed: '=?',
-      infinite: '=?',
-      arrows: '=?',
-      dots: '=?',
-      initialSlide: '=?',
-      visibleNext: '=?',
-      visiblePrev: '=?',
-      preSpace: '=?',
-
-      // Method
-      onBeforeChange: '&',
-      onAfterChange: '&',
-      onInit: '&'
-    },
-    link: function link($scope, el) {
-      var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
-
-      // dynamic injections to override the inner layers' components
-      var injectComponentMap = {
-        'carousel-item': '.carousel-item',
-        'carousel-prev': '.carousel-prev',
-        'carousel-next': '.carousel-next'
-      };
-
-      var templateInstance = template.clone();
-      angular.forEach(injectComponentMap, function (innerSelector, outerSelector) {
-        var outerElement = el[0].querySelector(outerSelector);
-        if (outerElement) {
-          angular.element(templateInstance[0].querySelector(innerSelector)).html(outerElement.innerHTML);
-        }
-      });
-
-      var compiledElement = $compile(templateInstance)($scope);
-      el.addClass('ui-carousel').html('').append(compiledElement);
-    },
-
-
-    controller: 'CarouselController',
-    controllerAs: 'ctrl'
-  };
-}]);
-'use strict';
-
 /**
  * angular-ui-carousel
  * for example:
@@ -231,7 +171,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
 
     _this.slideHandler(_this.currentSlide).finally(function () {
       _this.isCarouselReady = true;
-      $scope.$emit('isCarousalReady');
+      $scope.$emit('CarousalIsReady');
 
       if (!_this.options.fade) {
         _this.refreshTrackStyle();
@@ -696,6 +636,66 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
 }]);
 'use strict';
 
+angular.module('ui.carousel.directives').directive('uiCarousel', ['$compile', '$templateCache', '$sce', function ($compile, $templateCache, $sce) {
+
+  return { restrict: 'AE',
+    bindToController: true,
+    scope: {
+      name: '=?',
+      slides: '=',
+      show: '=?slidesToShow',
+      scroll: '=?slidesToScroll',
+      eachItemWidth: '=?eachItemWidth',
+      classes: '@',
+      fade: '=?',
+      onChange: '=?',
+      disableArrow: '=?',
+      autoplay: '=?',
+      autoplaySpeed: '=?',
+      cssEase: '=?',
+      speed: '=?',
+      infinite: '=?',
+      arrows: '=?',
+      dots: '=?',
+      initialSlide: '=?',
+      visibleNext: '=?',
+      visiblePrev: '=?',
+      preSpace: '=?',
+
+      // Method
+      onBeforeChange: '&',
+      onAfterChange: '&',
+      onInit: '&'
+    },
+    link: function link($scope, el) {
+      var template = angular.element($templateCache.get('ui-carousel/carousel.template.html'));
+
+      // dynamic injections to override the inner layers' components
+      var injectComponentMap = {
+        'carousel-item': '.carousel-item',
+        'carousel-prev': '.carousel-prev',
+        'carousel-next': '.carousel-next'
+      };
+
+      var templateInstance = template.clone();
+      angular.forEach(injectComponentMap, function (innerSelector, outerSelector) {
+        var outerElement = el[0].querySelector(outerSelector);
+        if (outerElement) {
+          angular.element(templateInstance[0].querySelector(innerSelector)).html(outerElement.innerHTML);
+        }
+      });
+
+      var compiledElement = $compile(templateInstance)($scope);
+      el.addClass('ui-carousel').html('').append(compiledElement);
+    },
+
+
+    controller: 'CarouselController',
+    controllerAs: 'ctrl'
+  };
+}]);
+'use strict';
+
 angular.module('ui.carousel.providers').provider('Carousel', function () {
   var _this = this;
 
@@ -752,6 +752,6 @@ angular.module('ui.carousel.providers').provider('Carousel', function () {
     module = angular.module('ui.carousel', []);
   }
   module.run(['$templateCache', function ($templateCache) {
-    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)" ng-class="{\'card-shadow\': $index === ctrl.currentSlide, \'default-shadow\': $index !== ctrl.currentSlide }"><div class="carousel-item" ng-swipe-right="ctrl.prev()" ng-swipe-left="ctrl.next()"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
+    $templateCache.put('ui-carousel/carousel.template.html', '<div class="carousel-wrapper" ng-show="ctrl.isCarouselReady"><div class="track-wrapper"><div class="track" ng-style="ctrl.trackStyle"><div class="slide" ng-repeat="item in ctrl.slidesInTrack track by $index" ng-style="ctrl.getSlideStyle($index)" ng-class="{\'current-slide\': $index === ctrl.currentSlide }"><div class="carousel-item" ng-swipe-right="ctrl.prev()" ng-swipe-left="ctrl.next()"></div></div></div></div><div class="carousel-prev" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisiblePrev &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickablePrev}" ng-click="ctrl.prev()"><button class="carousel-btn"><i class="ui-icon-prev"></i></button></div><div class="carousel-next" ng-if="!ctrl.disableArrow" ng-show="ctrl.isVisibleNext &amp;&amp; ctrl.options.arrows" ng-class="{\'carousel-disable\': !ctrl.isClickableNext}" ng-click="ctrl.next()"><button class="carousel-btn"><i class="ui-icon-next"></i></button></div><ul class="carousel-dots" ng-show="ctrl.isVisibleDots &amp;&amp; ctrl.options.dots"><li ng-repeat="dot in ctrl.getDots()" ng-class="{ \'carousel-active\': dot == ctrl.currentSlide/ctrl.options.slidesToScroll }" ng-click="ctrl.movePage(dot)"><button>{{ dot }}</button></li></ul></div>');
   }]);
 })();

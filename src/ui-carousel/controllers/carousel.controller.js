@@ -154,7 +154,7 @@ angular.module('ui.carousel.controllers')
         .slideHandler(this.currentSlide)
         .finally(() => {
           this.isCarouselReady = true;
-          $scope.$emit('isCarousalReady');
+          $scope.$emit('CarousalIsReady');
 
           if (!this.options.fade) {
             this.refreshTrackStyle();

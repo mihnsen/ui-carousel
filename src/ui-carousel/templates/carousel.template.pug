@@ -4,7 +4,7 @@
       .slide(
         ng-repeat="item in ctrl.slidesInTrack track by $index",
         ng-style="ctrl.getSlideStyle($index)",
-        ng-class="{'card-shadow': $index === ctrl.currentSlide, 'default-shadow': $index !== ctrl.currentSlide }"
+        ng-class="{'current-slide': $index === ctrl.currentSlide }"
       )
         .carousel-item(
           ng-swipe-right="ctrl.prev()"
