@@ -165,6 +165,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    */
   this.initTrack = function () {
     if (_this.width < 2) _this.width = $element[0].clientWidth < 2 ? 300 : $element[0].clientWidth;
+    console.log(_this.width);
     var itemWidth = _this.options.eachItemWidth ? _this.options.eachItemWidth : _this.width / _this.options.slidesToShow;
     var trackWidth = itemWidth * _this.slidesInTrack.length;
 
