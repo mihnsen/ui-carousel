@@ -135,8 +135,8 @@ angular.module('ui.carousel.controllers')
      * if its not set initTrack
      */
     var vm = this;
-    $scope.$watch(this.width, () => {
-      if ($element[0].clientWidth == 0){
+    $scope.$watch(this.width < 1, () => {
+      if ($element[0].clientWidth < 2 ){
         vm.initTrack();
       }
     })
