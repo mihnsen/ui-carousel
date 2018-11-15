@@ -150,17 +150,6 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
   };
 
   /**
-   * Watch on carousel Elements width and
-   * if its not set initTrack
-   */
-  var vm = this;
-  $scope.$watch(this.width < 1, function () {
-    if ($element[0].clientWidth < 2) {
-      vm.initTrack();
-    }
-  });
-
-  /**
    * update common style for each carousel item
    */
   this.updateItemStyle = function () {
@@ -175,6 +164,7 @@ angular.module('ui.carousel.controllers').controller('CarouselController', ['$sc
    * also make Carousel is Ready
    */
   this.initTrack = function () {
+    if (_this.width < 2) _this.width = $element[0].clientWidth < 2 ? 300 : $element[0].clientWidth;
     var itemWidth = _this.options.eachItemWidth ? _this.options.eachItemWidth : _this.width / _this.options.slidesToShow;
     var trackWidth = itemWidth * _this.slidesInTrack.length;
 
